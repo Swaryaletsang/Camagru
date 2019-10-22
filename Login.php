@@ -6,8 +6,8 @@ include('./val.php');
         $retrive[$key] = $value;
     if ($retrive["username"] && $retrive["password"] && $retrive["submit"]) {
         $va = new va();
-        if ($va->valid_login($retrive['username'], $retrive['passwd'])){
-            header("location: conetents.php");
+        if ($va->valid_login($retrive['username'], $retrive['password'])){
+            header("location: contents.php");
         }
         else{
             $not_val = "incorect username or password";

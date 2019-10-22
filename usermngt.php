@@ -22,7 +22,7 @@ class createuser{
         $stmt->bindParam(":username", $this->uname);
         $stmt->bindParam(":fullname", $this->name);
         $stmt->bindParam(":email", $this->email);
-        $stmt->bindParam(":passwd", $this->passw);
+        $stmt->bindParam(":passwd", hash("md5",$this->passw));
         $stmt->execute();
         echo "qwe";
     }

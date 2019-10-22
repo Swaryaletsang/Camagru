@@ -57,13 +57,14 @@
         public function valid_login($uname, $passwd)
         {
             if (!preg_match('/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/', $passwd))
-                return 0;
+                 return 0; 
+               
             if (preg_match('/[A-Za-z0-9]{6,}/', $uname)){
                 try{
-                    $sql = 'SELECT * FROM users WHERE username = :uname AND passwd = :passwd;';
+                    $sql = 'SELECT * FROM users WHERE username = :uname && passwd = :passwd;';
                     $stmt = $this->conns->prepare($sql);
                     $stmt->bindParam(":uname", $uname);
-                    $stmt->bindParam(":passwd", $passwd);
+                    $stmt->bindParam(":passwd", hash("md5",$passwd));
                     $stmt->execute();
                     $rot = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                     if (count($stmt->fetchAll()))
@@ -78,7 +79,7 @@
                     $sql = 'SELECT * FROM users WHERE email = :uname && passwd = :passwd;';
                     $stmt = $this->conns->prepare($sql);
                     $stmt->bindParam(":uname", $uname);
-                    $stmt->bindParam(":passwd", $passwd);
+                    $stmt->bindParam(":passwd", hash("md5",$passwd));
                     $stmt->execute();
                     $rot = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                     if (count($stmt->fetchAll()))
