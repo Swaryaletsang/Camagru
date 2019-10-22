@@ -10,7 +10,7 @@
         /*    */
         public function test_user($uname)
         {
-            if (!preg_match('/[A-Za-z0-9]{10}/', $uname))
+            if (!preg_match('/[A-Za-z0-9]{6,}/', $uname))
                 return 0;
             try{
                 $sql = 'SELECT * FROM users WHERE username = :uname;';
@@ -53,6 +53,42 @@
                 echo "Selection failed: " . $e->getMessage();
             }
             return 1;
+        }
+        public function valid_login($uname, $passwd)
+        {
+            if (!preg_match('/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/', $passwd))
+                return 0;
+            if (preg_match('/[A-Za-z0-9]{6,}/', $uname)){
+                try{
+                    $sql = 'SELECT * FROM users WHERE username = :uname AND passwd = :passwd;';
+                    $stmt = $this->conns->prepare($sql);
+                    $stmt->bindParam(":uname", $uname);
+                    $stmt->bindParam(":passwd", $passwd);
+                    $stmt->execute();
+                    $rot = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                    if (count($stmt->fetchAll()))
+                        return 1;
+                }catch (PDOException $e)
+                {
+                    echo "Selection failed: " . $e->getMessage();
+                }
+            }
+            if(filter_var($uname, FILTER_VALIDATE_EMAIL)){
+                try{
+                    $sql = 'SELECT * FROM users WHERE email = :uname && passwd = :passwd;';
+                    $stmt = $this->conns->prepare($sql);
+                    $stmt->bindParam(":uname", $uname);
+                    $stmt->bindParam(":passwd", $passwd);
+                    $stmt->execute();
+                    $rot = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                    if (count($stmt->fetchAll()))
+                        return 1;
+                }catch (PDOException $e)
+                {
+                    echo "Selection failed: " . $e->getMessage();
+                }
+             }
+             return 0;
         }
     }
 ?>

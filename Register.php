@@ -11,7 +11,7 @@ if ($retrive["email"] && $retrive["name"] && $retrive["username"] && $retrive["p
         echo "f";
         $var = new createuser($retrive["email"], $retrive["name"], $retrive["username"], $retrive["password"]);
         $var->add_user();
-        header("location: Login.html");
+        header("location: Login.php");
     }
 }
 ?>
@@ -39,7 +39,7 @@ if ($retrive["email"] && $retrive["name"] && $retrive["username"] && $retrive["p
                 <form action="Register.php" method="post">
                     <p><input type="email" name="email" id="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email format" required></p>
                     <p><input type="text" name="name" placeholder="Full Name" id="name"></p>
-                    <p> <input type="text" name="username" placeholder="Username" id="username" pattern="[A-Za-z0-9]{10}" required></p>
+                    <p> <input type="text" name="username" placeholder="Username" id="username" pattern="[A-Za-z0-9]{6,}" required></p>
                     <p><input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Password" required title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
                     <p><input type="submit" value="Sign Up" name="submit" id="submit"></p>
                 </form>
