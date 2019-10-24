@@ -8,7 +8,9 @@ include('./val.php');
     if ($retrive["username"] && $retrive["password"] && $retrive["submit"]) {
         $va = new va();
         if ($va->valid_login($retrive['username'], $retrive['password'])){
-            $_SESSION['userid'] = $retrive["username"];  
+            $_SESSION['userid'] = $retrive["username"];
+            $_SESSION['pwd'] = $retrive['password'];
+            $_SESSION['email'] = $retrive['email'];
            header("location: contents.php");
         }
         else{

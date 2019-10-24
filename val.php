@@ -91,10 +91,10 @@
              }
              return 0;
         }
-        public function get_uid($uname)
+        public function get_user($uname)
         {
             try{
-                $sql = 'SELECT userid FROM users WHERE username = :uname;';
+                $sql = 'SELECT * FROM users WHERE username = :uname;';
                 $stmt = $this->conns->prepare($sql);
                 $stmt->bindParam(":uname", $uname);
                 $stmt->execute();

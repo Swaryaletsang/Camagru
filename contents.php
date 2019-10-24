@@ -4,9 +4,9 @@
     include('./val.php');
     echo "welcome you beatuify thing!!!!!!!!!!";
     $va = new va();
-    $id = $va->get_uid( $_SESSION['userid']);
+    $id = $va->get_user( $_SESSION['userid']);
     print_r($id); 
-   echo $_SESSION['userid'] ;
+   //echo $_SESSION['userid'] ;
     // $a = get_uid($_SESSION['userid']);
     // print_r($a);
    
