@@ -49,7 +49,7 @@ if ($retrive["email"] && $retrive["name"] && $retrive["username"] && $retrive["p
             </div>
         </div>
         <div class="box-2">
-            <p>Have an account? <a href="Login.html">Login</a></p>
+            <p>Have an account? <a href="Login.php">Login</a></p>
         </div>
     </div>
 

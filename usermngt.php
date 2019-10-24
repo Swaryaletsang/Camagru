@@ -26,6 +26,22 @@ class createuser{
         $stmt->execute();
         echo "qwe";
     }
+    public function update_profile($id,$uname,$email,$name, $passw){
+        $sql = 'UPDATE user SET username = :username, fullname = :fullname, email = :email, passwd = :passwd) WHERE userid = :userid';
+        $stmt = $this->conns->prepare($sql);
+        $stmt->bindParam(":username", $uname);
+        $stmt->bindParam(":fullname", $name);
+        $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":userid", $id);
+        $stmt->bindParam(":passwd", hash("md5",$passw));
+        $stmt->execute();
+        echo "updated";
+    }
+    // public function update($table,$id,$uname,$email,$name)
+    // {
+    //  $res = mysql_query("UPDATE $table SET username='$uname', emailname='$email', fullname='$name' WHERE userid=".$id);
+    //  return $res;
+    // }
     public function __destruct(){
         $this->conns = NULL;
     }

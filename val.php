@@ -91,5 +91,20 @@
              }
              return 0;
         }
+        public function get_uid($uname)
+        {
+            try{
+                $sql = 'SELECT userid FROM users WHERE username = :uname;';
+                $stmt = $this->conns->prepare($sql);
+                $stmt->bindParam(":uname", $uname);
+                $stmt->execute();
+                $rot = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                return ($stmt->fetchAll());
+            }catch (PDOException $e)
+            {
+                echo "Selection failed: " . $e->getMessage();
+            }
+
+        }
     }
 ?>
