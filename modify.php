@@ -3,24 +3,44 @@
     include('./val.php');
     include('./usermngt.php');
     $retrive = array();
-    $not_val = "";
+    $play = array();
     foreach($_POST as $key => $value)
         $retrive[$key] = $value;
     $va = new va();
-    $id = $va->get_user( $_SESSION['userid']);
+    $id = $va->get_user($_SESSION['userid']);
     $uname = $retrive['username'];
-    $name = $retrive['fullname'];
+    $name = $retrive['name'];
     $email = $retrive['email'];
     $password = $retrive['password'];
     $curentpassword = $retrive['curentpassword'];
     $pwd = $_SESSION['pwd'];
-    echo $pwd;
+    $pref = $retrive['email_preference'];
     if ($retrive['submit'])
     {
         if ($pwd === $curentpassword)
         {
-            $var = new createuser($retrive["email"], $retrive["name"], $retrive["username"], $retrive["password"]);
-            $var->update_profile($id[0]['userid']);
+            if(!$email && !$name && !$uname && !$password){
+                $error_msg = "Nothing changed";
+                echo $error_msg;
+            }  
+            else{
+                if (!$email)
+                    $email = $id[0]['email'];
+                if (!$password)
+                    $password = $pwd;
+                if (!$name)
+                    $name = $id[0]['fullname'];
+                if (!$uname)
+                    $uname = $id[0]['username'];
+                if ($email || $name || $uname || $password){
+                    $var = new createuser($email, $name, $uname, $password);
+                    $var->update_profile($id[0]['userid']); 
+                }
+                if (isset($pref))
+                    mail($id[0]['email'], "CAMAGRU account updated", "Hi " .$id[0]['fullname'].",\n\nYou have made some changes on your account.\n\nRegards\nCAMAGRU", "FROM:(CAMAGRU)camagruca@gmail.com");
+
+            }    
+             
         }
 
     }
@@ -46,11 +66,12 @@
             </div>
             <div class="form_reg">
                 <form action="" method="post">
-                    <p><input type="email" name="email" id="email" placeholder="Edit Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email format" value="<?php echo $id['email'];?>"></p>
-                    <p><input type="text" name="name" value="<?php echo $_SESSION['fname']?>" placeholder="Edit Full Name" id="name"></p>
-                    <p> <input type="text" name="username" placeholder="Edit Username" id="username" value="<?php echo $_SESSION['userid']?>" pattern=[A-Za-z0-9]{6,}"></p>
+                    <p><input type="email" name="email" id="email" placeholder="Edit Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email format"></p>
+                    <p><input type="text" name="name" placeholder="Edit Full Name" id="name"></p>
+                    <p> <input type="text" name="username" placeholder="Edit Username" id="username" pattern="[A-Za-z0-9]{6,}"></p>
                     <p><input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Change Password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
                     <p><input type="password" name="curentpassword" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Enter current Password" required></p>
+                    <p><input type="checkbox" name="email_preference" value=""> Receive email Notification?</p>
                     <p><input type="submit" value="Update" name="submit" id="submit"></p>
                 </form>
             </div>

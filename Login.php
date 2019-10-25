@@ -11,6 +11,7 @@ include('./val.php');
             $_SESSION['userid'] = $retrive["username"];
             $_SESSION['pwd'] = $retrive['password'];
             $_SESSION['email'] = $retrive['email'];
+            $_SESSION['name'] = $retrive['fullname'];
            header("location: contents.php");
         }
         else{
