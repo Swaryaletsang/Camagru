@@ -26,6 +26,12 @@ class createuser{
         $stmt->execute();
         echo "qwe";
     }
+    public function tbuser()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS users(userid  INT(10) AUTO_INCREMENT PRIMARY KEY, username VARCHAR(150) NOT NULL, fullname VARCHAR(150) NOT NULL, email VARCHAR(150) NOT NULL, passwd VARCHAR(150) NOT NULL)";
+        $stmt = $this->conns->prepare($sql);
+        $stmt->execute();
+    }
     public function update_profile($id){
         $sql = 'UPDATE users SET username = :username, fullname = :fullname, email = :email, passwd = :passwd WHERE userid = :userid';
         $stmt = $this->conns->prepare($sql);
