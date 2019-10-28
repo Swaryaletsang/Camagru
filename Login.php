@@ -8,11 +8,15 @@ include('./val.php');
     if ($retrive["username"] && $retrive["password"] && $retrive["submit"]) {
         $va = new va();
         if ($va->valid_login($retrive['username'], $retrive['password'])){
-            $_SESSION['userid'] = $retrive["username"];
-            $_SESSION['pwd'] = $retrive['password'];
-            $_SESSION['email'] = $retrive['email'];
-            $_SESSION['name'] = $retrive['fullname'];
-           header("location: contents.php");
+            if ($va->email_verified($retrive['username'])){
+                $_SESSION['userid'] = $retrive["username"];
+                $_SESSION['pwd'] = $retrive['password'];
+                $_SESSION['email'] = $retrive['email'];
+                $_SESSION['name'] = $retrive['fullname'];
+                header("location: contents.php");
+            }      
+            else
+                echo "confirm account first";
         }
         else{
             $not_val = "incorect username or password";

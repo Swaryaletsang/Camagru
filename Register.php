@@ -12,7 +12,7 @@ if ($retrive["email"] && $retrive["name"] && $retrive["username"] && $retrive["p
         $var = new createuser($retrive["email"], $retrive["name"], $retrive["username"], $retrive["password"]);
         $var->tbuser();
         $var->add_user();
-        header("location: Login.php");
+        // header("location: Login.php");
     }
 }
 ?>
