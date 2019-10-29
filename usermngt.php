@@ -57,4 +57,46 @@ class createuser{
         $this->conns = NULL;
     }
 }
+class images{
+    
+    private $conns;
+    public function __construct()
+    {
+        include('./connection.php');
+        $this->conns = $conn;
+    } 
+
+    public function tbphotos()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS photos(id  INT(10) AUTO_INCREMENT PRIMARY KEY, userid  INT(10) NOT NULL, img VARCHAR(150) NOT NULL, txt TEXT);";
+        $stmt = $this->conns->prepare($sql);
+        $stmt->execute();
+    }
+    public function uploadImg($uid, $img, $txt)
+    {
+        $sql = 'INSERT INTO photos (userid, img, txt) VALUES (:userid, :img, :txt)';
+        $stmt = $this->conns->prepare($sql);
+        $stmt->bindParam(":userid", $uid);
+        $stmt->bindParam(":img", $img);
+        $stmt->bindParam(":txt", $txt);
+        $stmt->execute();
+    }
+    public function displayImage()
+        {
+            try{
+                $sql = 'SELECT * FROM photos ORDER BY id DESC ';
+                $stmt = $this->conns->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->FetchAll();
+                return $result;
+            }catch (PDOException $e)
+            {
+                echo "Selection failed: " . $e->getMessage();
+            }
+        }
+    public function __destruct(){
+        $this->conns = NULL;
+    }
+}
+
 ?>
