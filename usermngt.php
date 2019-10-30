@@ -68,7 +68,7 @@ class images{
 
     public function tbphotos()
     {
-        $sql = "CREATE TABLE IF NOT EXISTS photos(id  INT(10) AUTO_INCREMENT PRIMARY KEY, userid  INT(10) NOT NULL, img VARCHAR(150) NOT NULL, txt TEXT, imgDate NOT NULL DEFAULT TIMESTAMP)";
+        $sql = "CREATE TABLE IF NOT EXISTS photos(id  INT(10) AUTO_INCREMENT PRIMARY KEY, userid  INT(10) NOT NULL, img VARCHAR(150) NOT NULL, txt TEXT, imgDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
         $stmt = $this->conns->prepare($sql);
         $stmt->execute();
     }
@@ -82,11 +82,12 @@ class images{
         $stmt->bindParam(":txt", $txt);
         $stmt->execute();
     }
-    public function displayImage()
+    public function displayImage($userid)
         {
             try{
-                $sql = 'SELECT * FROM photos ORDER BY imgDate ASC ';
+                $sql = 'SELECT * FROM photos WHERE userid = :userid ORDER BY imgDate DESC';
                 $stmt = $this->conns->prepare($sql);
+                $stmt->bindParam(":userid", $userid);
                 $stmt->execute();
                 $result = $stmt->FetchAll();
                 return $result;
@@ -97,6 +98,14 @@ class images{
         }
     public function __destruct(){
         $this->conns = NULL;
+    }
+    public function deletepost($uid,$pid)
+    {
+        $sql = 'DELETE FROM photos WHERE id = :pid AND userid = :users';
+                $stmt = $this->conns->prepare($sql);
+                $stmt->bindParam(":pid", $pid);
+                $stmt->bindParam(":users", $uid);
+                $stmt->execute();
     }
 }
 

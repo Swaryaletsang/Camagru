@@ -13,10 +13,10 @@
         echo 'You are logged in as ' .$id[0]['username'] .'<br>';
 
         if (isset($_POST['submit'])) {
-            $file = $_FILES['image'];
-
             $txt = $_POST['text'];
             $uid = $id[0]['userid'];
+            $file = $_FILES['image'];
+
             $fileName = $file['name'];
             $fileTmpName = $file['tmp_name'];
             $fileSize = $file['size'];
@@ -52,6 +52,13 @@
     echo 'You are not Logged in! '."<a href='Login.php'>login here</a><br>";
 }
 
+if(isset($_POST['submitdelete']))
+{
+    $var = new images();
+    $uid = $id[0]['userid'];
+    $pid = $_POST['submitdelete'];
+    $var->deletepost($uid ,$pid);
+}
     
 ?> 
 <html>
@@ -80,18 +87,18 @@
             ?> 
         </div>
         <?php
-        // $va = new va();
-        // $id = $va->get_user($_SESSION['userid']);
+        $va = new va();
+        $id = $va->get_user($_SESSION['userid']);
         $var = new images();
-        $r = $var->displayImage();
+        $r = $var->displayImage($id[0]['userid']);
             foreach($r as $row){
                 echo "<div id='img'>";
-                    // echo $id[0]['username']. "<hr>";
                     echo "<img src='uploads/".$row['img']."'>";
                     echo "<p>".$row['txt']."</p>";
-
+                   echo " <form action='contents.php' method= 'POST'>
+                    <button class='button' type='submit' name='submitdelete' value='".$row['id']."'>Delete</button>
+                </form>";             
                 echo "</div>";
-
             }
         ?>
     
