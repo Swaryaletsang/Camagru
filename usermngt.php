@@ -68,12 +68,13 @@ class images{
 
     public function tbphotos()
     {
-        $sql = "CREATE TABLE IF NOT EXISTS photos(id  INT(10) AUTO_INCREMENT PRIMARY KEY, userid  INT(10) NOT NULL, img VARCHAR(150) NOT NULL, txt TEXT);";
+        $sql = "CREATE TABLE IF NOT EXISTS photos(id  INT(10) AUTO_INCREMENT PRIMARY KEY, userid  INT(10) NOT NULL, img VARCHAR(150) NOT NULL, txt TEXT, imgDate NOT NULL DEFAULT TIMESTAMP)";
         $stmt = $this->conns->prepare($sql);
         $stmt->execute();
     }
     public function uploadImg($uid, $img, $txt)
     {
+        echo $uid;
         $sql = 'INSERT INTO photos (userid, img, txt) VALUES (:userid, :img, :txt)';
         $stmt = $this->conns->prepare($sql);
         $stmt->bindParam(":userid", $uid);
@@ -84,7 +85,7 @@ class images{
     public function displayImage()
         {
             try{
-                $sql = 'SELECT * FROM photos ORDER BY id DESC ';
+                $sql = 'SELECT * FROM photos ORDER BY imgDate ASC ';
                 $stmt = $this->conns->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->FetchAll();

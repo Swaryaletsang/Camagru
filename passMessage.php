@@ -1,0 +1,1 @@
+<?php echo "password reset link has been sent to your email";?>

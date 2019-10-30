@@ -14,6 +14,9 @@ if ($retrive["email"] && $retrive["name"] && $retrive["username"] && $retrive["p
         $var->add_user();
         // header("location: Login.php");
     }
+    else {
+        echo "Username or Email already exist!";
+    }
 }
 ?>
 

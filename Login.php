@@ -43,7 +43,7 @@ include('./val.php');
             <div class="form_reg"> 
                 <div><?php echo $not_val;?></div>
                 <form method="POST">
-                    <p><input type="text" name="username" placeholder="Username or Email" id="username" required></p>
+                    <p><input type="text" name="username" placeholder="Username" id="username" required></p>
                     <p><input type="password" name="password" id="password" placeholder="Password" required></p>
                     <p> <input type="submit" value="Login" name="submit" id="submit"></p>
                 </form>
