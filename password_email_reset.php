@@ -8,7 +8,7 @@
         if ($email){
             $valid = new va();
             echo "3";
-           // if ($valid->test_email($email)){
+            if ($valid->email_verified($email)){
                 $vkey = md5(time());
                 $mail = new send_mail("$email","<a href=http://localhost:8080/gururepo/resetPassword.php?vkey=$vkey>reset password</a>" ,"password reset");
                 $mail->send_mail();
@@ -18,10 +18,10 @@
                 $stmt->bindParam(":email", $email);
                 $stmt->execute(); echo 'g';
                 header("location: passMessage.php");
-            //}
-           // else{
-          //      echo "email not registered";
-           // }
+            }
+           else{
+               echo "email not registered";
+           }
         }
         else{
             echo "no email entered";

@@ -17,7 +17,7 @@
     $pref = $retrive['email_preference'];
     if ($retrive['submit'])
     {
-        if ($pwd === $curentpassword)
+        if ($pwd === $curentpassword )
         {
             if(!$email && !$name && !$uname && !$password){
                 $error_msg = "Nothing changed";
@@ -33,12 +33,30 @@
                 if (!$uname)
                     $uname = $id[0]['username'];
                 if ($email || $name || $uname || $password){
-                    $var = new createuser($email, $name, $uname, $password);
-                    $var->update_profile($id[0]['userid']); 
-                }
-                if (isset($pref))
-                    mail($id[0]['email'], "CAMAGRU account updated", "Hi " .$id[0]['fullname'].",\n\nYou have made some changes on your account.\n\nRegards\nCAMAGRU", "FROM:(CAMAGRU)camagruca@gmail.com");
+                    $va = new va();
+                    if ($va->test_email($retrive['email']) || $va->test_password($retrive['password']) || $va->test_user($retrive['username'])){
 
+                        $var = new createuser($email, $name, $uname, $password);
+                        $var->update_profile($id[0]['userid']); 
+                    }
+                    else {
+                        if ($_POST['email'])
+                            echo "Email already exist!";
+                        if ($_POST['username'])
+                            echo "Username already exist!";
+                    }
+                }
+                if (isset($pref)){
+                    if ($_POST['name'])
+                        mail($id[0]['email'], "CAMAGRU account updated", "Hi " .$id[0]['username'].",\n\nYou have changed your fullname.\n\nRegards\nCAMAGRU", "FROM:(CAMAGRU)camagruca@gmail.com");
+                    if ($_POST['email'])
+                        mail($id[0]['email'], "CAMAGRU account updated", "Hi " .$id[0]['username'].",\n\nYou have changed your Email.\n\nRegards\nCAMAGRU", "FROM:(CAMAGRU)camagruca@gmail.com");
+                    if ($_POST['username'])
+                        mail($id[0]['email'], "CAMAGRU account updated", "Hi " .$id[0]['username'].",\n\nYou have changed your username.\n\nRegards\nCAMAGRU", "FROM:(CAMAGRU)camagruca@gmail.com");
+                    if ($_POST['password'])
+                        mail($id[0]['email'], "CAMAGRU account updated", "Hi " .$id[0]['username'].",\n\nYou have changed your password.\n\nRegards\nCAMAGRU", "FROM:(CAMAGRU)camagruca@gmail.com");
+                }
+                    
             }    
              
         }
@@ -71,7 +89,7 @@
                     <p> <input type="text" name="username" placeholder="Edit Username" id="username" pattern="[A-Za-z0-9]{6,}"></p>
                     <p><input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Change Password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
                     <p><input type="password" name="curentpassword" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Enter current Password" required></p>
-                    <p><input type="checkbox" name="email_preference" value=""> Receive email Notification?</p>
+                    <p><input type="checkbox" name="email_preference" value="" checked> Receive email Notification?</p>
                     <p><input type="submit" value="Update" name="submit" id="submit"></p>
                 </form>
             </div>

@@ -8,7 +8,6 @@
 
     $va = new va();
     $id = $va->get_user($_SESSION['userid']);
-
     if ($_SESSION['userid']){ 
         echo 'You are logged in as ' .$id[0]['username'] .'<br>';
 
@@ -44,6 +43,9 @@
                     echo "There was an error uploading your Image";
                 }
             }
+            elseif (!$_FILES['image']['name']){
+                echo "Nothing To Upload";
+            }
             else{
                 echo "You cannot upload files of this type!";
             }
@@ -66,7 +68,7 @@ if(isset($_POST['submitdelete']))
     <?php
     if ($_SESSION['userid']){
         echo  "<a href='modify.php'>Edit Profile</a><br>";
-    
+        echo  "<a href='cam.php'>Take a picture</a><br>";
         echo "<form action='logout.php' method='POST'>
             <button type='submit' name='logoutsubmit' id='logoutsubmit'>Logout</button>
         </form>";
