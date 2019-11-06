@@ -2,18 +2,18 @@
     $retrive = array();
     foreach($_POST as $key => $value)
         $retrive[$key] = $value;
-    if ($retrive["image"]) {
+    if ($retrive['image']) {
         $reimage = explode(",", $retrive['image']);
         $encodedData = str_replace(' ','+',$reimage[1]);
         $decodedData = base64_decode($encodedData);
         $fp = fopen("canvas.jpeg", 'wb');
         fwrite($fp, $decodedData);
-        fclose();
+        fclose($fp);
         switch($retrive['rad']){
             case "bat":
                 
                 $image1 = 'canvas.jpeg';
-                $image2 = 'bat.png';
+                $image2 = './stikers/bat.png';
 
                 list($width, $height) = getimagesize($image2);
 
@@ -32,7 +32,7 @@
                 break;
             case "glass":
                 $image1 = 'canvas.jpeg';
-                $image2 = 'glass2.png';
+                $image2 = './stikers/glass.png';
 
                 list($width, $height) = getimagesize($image2);
 
@@ -51,7 +51,7 @@
                 break;
             case "tree":
                 $image1 = 'canvas.jpeg';
-                $image2 = 'tree.png';
+                $image2 = './stikers/tree.png';
 
                 list($width, $height) = getimagesize($image2);
 

@@ -15,6 +15,8 @@
     $curentpassword = $retrive['curentpassword'];
     $pwd = $_SESSION['pwd'];
     $pref = $retrive['email_preference'];
+    if (!$_SESSION['userid'])
+        header('Location: login.php');
     if ($retrive['submit'])
     {
         if ($pwd === $curentpassword )

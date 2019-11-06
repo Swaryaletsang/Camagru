@@ -37,7 +37,7 @@ class picdb{
     public function getall()
     {
         try{
-            $sql = 'SELECT * FROM userimage';
+            $sql = 'SELECT * FROM userimage ORDER BY timess DESC';
             $stmt = $this->co->prepare($sql);
             $stmt->execute();
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -50,9 +50,12 @@ class picdb{
     public function getalluser($userid)
     {
         try{
-            $sql = 'SELECT * FROM userimage WHERE userid = :userid';
+            $sql = 'SELECT * FROM userimage WHERE userid = :userid ORDER BY timess DESC';
+            // $sql = 'SELECT userimage.images, userimage.timess As time FROM userimage where userimage.userid = ? UNION SELECT photos.images, photos.imgDate As time FROM photos where photos.userid = ? ORDER BY time';
             $stmt = $this->co->prepare($sql);
             $stmt->bindParam(':userid', $userid);
+            // $stmt->bindParam(1, $userid);
+            // $stmt->bindParam(2, $userid);
             $stmt->execute();
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
             return $stmt->fetchAll();

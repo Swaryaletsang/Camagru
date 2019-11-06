@@ -1,11 +1,19 @@
 <?php
-    // include_once('./sessionmanagement.php');
+//remove when doe or before marking
+// ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+    session_start();
+    include_once('val.php');
     include_once('picpro.php');
+    if (!$_SESSION['userid'])
+        header('Location: login.php');
+    $bar = new va;
+    $id = $bar->get_user($_SESSION['userid']);
+    $uid = $id[0]['userid'];
     if ($_POST['ims'])
     {
         include('savimg.php');
         $ar = new saveimg();
-        $ar->saveimg($_POST['ims'], $_SESSION['username']);
+        $ar->saveimg($_POST['ims'], $uid);
         $s = shell_exec('rm merge.png');
         header("Location: gallery.php");
     }
@@ -22,7 +30,7 @@
 </head>
 <body>
     <div style="float: left; margin-left: 500px;">
-        <form actio="cam.php" method="post">
+        <form action="cam.php" method="post">
             <div class="video-wrap" >
                 <video id="video" playsinline autoplay></video>
             </div>
@@ -58,9 +66,9 @@
     <div>
         <button id="save" style="display: none;">Save</button>
     </div>
-    <!-- <div id="imagediv">
+    <div id="imagediv">
          <img src="" id="saveimage" style="float: left; border: 1px solid black; margin-left: 10px;">
-    </div> -->
+    </div>
     <script>
             'use strict';
             const video = document.getElementById('video');

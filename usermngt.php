@@ -75,7 +75,7 @@ class images{
     public function uploadImg($uid, $img, $txt)
     {
         echo $uid;
-        $sql = 'INSERT INTO photos (userid, img, txt) VALUES (:userid, :img, :txt)';
+        $sql = 'INSERT INTO photos (userid, images, txt) VALUES (:userid, :img, :txt)';
         $stmt = $this->conns->prepare($sql);
         $stmt->bindParam(":userid", $uid);
         $stmt->bindParam(":img", $img);
@@ -101,7 +101,7 @@ class images{
     }
     public function deletepost($uid,$pid)
     {
-        $sql = 'DELETE FROM photos WHERE id = :pid AND userid = :users';
+        $sql = 'DELETE FROM userimage WHERE num = :pid AND userid = :users';
                 $stmt = $this->conns->prepare($sql);
                 $stmt->bindParam(":pid", $pid);
                 $stmt->bindParam(":users", $uid);
