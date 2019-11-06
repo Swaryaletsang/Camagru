@@ -1,8 +1,8 @@
 <?php
     session_start();
-    // ini_set('display_errors', 1);
-    // ini_set('display_startup_errors', 1);
-    // error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
     include ('val.php');
     $bar = new va;
     $id = $bar->get_user($_SESSION['userid']);
@@ -11,7 +11,7 @@
     $not_val = "";
     foreach($_POST as $key => $value)
         $retrive[$key] = $value;
-    if ($_SESSION["userid"]  && $retrive["submit"])
+    if ($_SESSION["userid"]  && isset($_POST["submit"]))
     {
         if($retrive['comment'] && $retrive['userid'] && $_SESSION['userid'] && $retrive['imagenu'])
         {
@@ -20,8 +20,9 @@
             $ad->addcomment($retrive['comment'], $uid, $retrive['userid'], $retrive['imagenu']);
             $ad->emailcomment($uid, 'comment');
             unset($ad);
+            header('location: index.php');
         }
-    }elseif ($_SESSION["userid"] && $retrive['like'])
+    }elseif ($_SESSION["userid"] && isset($_POST['like']))
     {
         if($retrive['like'] && $_SESSION['userid'])
         {
@@ -30,6 +31,7 @@
             $ad->addlike($uid, $retrive['like'], $retrive['imagenu']);
             $ad->emailcomment($uid, 'like');
             unset($ad);
+            header('location: index.php');
         }
     }
 ?>
@@ -63,7 +65,7 @@
                     echo '<form action="index.php" method="post"><button id="'.$display[$i]['timess'].'" type="submit" name="like" value="'.$display[$i]['userid'].'">like '.$lik.'</button>';
                     echo '<input type="hidden" name="imagenu" value="'.$display[$i]['num'].'"></form></div><br/>';
 
-                    echo '<div id="'.$display[$i]['num'].'" style="display:none;">';
+                    echo '<div id="'.$display[$i]['num'].'" >';
                     $j = 0;
                     while($j < count($holds))
                     {
