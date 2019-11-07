@@ -34,6 +34,7 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
             include_once('./picdb.php');
             $arr = new picdb();
             $display = $arr->getalluser($uid);
+          
             $i = 0;
             while($i < count($display))
             {
@@ -43,7 +44,8 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
             </form>";             
             echo "</div>";
                 $i++;
-            } 
+            }
+            
         ?>
     </div>
     <div>

@@ -36,8 +36,14 @@ class picdb{
     }
     public function getall()
     {
+        $numperpage = 5;
+        $page = 0;
+        if (isset($_POST["page"])) {
+            $page = $_POST["page"];
+            $page = ($page * $numperpage) - $numperpage;
+        }
         try{
-            $sql = 'SELECT * FROM userimage ORDER BY timess DESC';
+            $sql = "SELECT * FROM userimage ORDER BY timess DESC LIMIT {$page},{$numperpage}";
             $stmt = $this->co->prepare($sql);
             $stmt->execute();
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);

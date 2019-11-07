@@ -3,6 +3,7 @@
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
+    include "connection.php";
     include ('val.php');
     $bar = new va;
     $id = $bar->get_user($_SESSION['userid']);
@@ -34,6 +35,20 @@
             header('location: index.php');
         }
     }
+    $numperpage = 5;
+    // $page = 0;
+    if ($_SESSION['userid']) {
+        $sql1 = "SELECT * FROM userimage ORDER BY timess DESC";
+        $stmt1 = $conn->prepare($sql1);
+        $stmt1->execute();
+        $re = $stmt1->setFetchMode(PDO::FETCH_ASSOC);
+        $rows = $stmt1->fetchAll();
+
+        $numrecords = count($rows);
+        $numlinks = ceil($numrecords/$numperpage);
+    }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,6 +80,7 @@
                     echo '<form action="index.php" method="post"><button id="'.$display[$i]['timess'].'" type="submit" name="like" value="'.$display[$i]['userid'].'">like '.$lik.'</button>';
                     echo '<input type="hidden" name="imagenu" value="'.$display[$i]['num'].'"></form></div><br/>';
 
+                    // echo '<div id="'.$display[$i]['num'].'" style="display:none;">';
                     echo '<div id="'.$display[$i]['num'].'" >';
                     $j = 0;
                     while($j < count($holds))
@@ -90,13 +106,13 @@
         {
             echo '<a href="gallery.php">Profile</a> ';
             echo '<a href="logout.php">logout</a>';
-            // echo $_SESSION["username"];
         }else
         {
             echo '<a href="login.php">login</a> ';
             echo '<a href="register.php">Register</a>';
         }
     ?>
+    
     </div>
     <script>
         function displays($val, $datess)
@@ -105,5 +121,13 @@
             document.getElementById($datess).style.display = "none";
         }
     </script>
+        <form action="" method="POST">
+            <?php
+                for ($i = 1; $i <= $numlinks; $i++){
+                    ?>
+                    <input type="submit" value= "<?php echo $i;?>" name = "page">
+                    <?php
+                }?>
+        </form>
 </body>
 </html>
