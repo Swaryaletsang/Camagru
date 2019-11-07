@@ -1,10 +1,11 @@
 <?php
     session_start();
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+    // ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting(E_ALL);
     include "connection.php";
     include ('val.php');
+    include 'nev1.php';
     $bar = new va;
     $id = $bar->get_user($_SESSION['userid']);
     $uid = $id[0]['userid'];
@@ -37,7 +38,6 @@
     }
     $numperpage = 5;
     // $page = 0;
-    if ($_SESSION['userid']) {
         $sql1 = "SELECT * FROM userimage ORDER BY timess DESC";
         $stmt1 = $conn->prepare($sql1);
         $stmt1->execute();
@@ -46,9 +46,6 @@
 
         $numrecords = count($rows);
         $numlinks = ceil($numrecords/$numperpage);
-    }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +97,7 @@
             unset($hold); 
         ?>
     </div>
-    <div>
+    <!-- <div>
     <?php
         if ($_SESSION["userid"])
         {
@@ -113,7 +110,7 @@
         }
     ?>
     
-    </div>
+    </div> -->
     <script>
         function displays($val, $datess)
         {

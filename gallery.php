@@ -2,8 +2,11 @@
 //remove when doe or before marking
 ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
     session_start();
+    include("nev.php");
     include("val.php");
     include("usermngt.php");
+    if (!$_SESSION['userid'])
+        header('location:login.php');
     $va = new va();
     $id = $va->get_user($_SESSION['userid']);
     if(isset($_POST['submitdelete']))
@@ -48,12 +51,12 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
             
         ?>
     </div>
-    <div>
+    <!-- <div>
     <a href="cam.php">cam</a>
     <a href="logout.php">logout</a>
     <a href="contents.php">upload</a>
     <a href="modify.php">edituser</a>
     <a href="index.php">public</a>
-    </div>
+    </div> -->
 </body>
 </html>
