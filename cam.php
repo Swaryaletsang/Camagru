@@ -15,6 +15,7 @@
         $ar = new saveimg();
         $ar->saveimg($_POST['ims'], $uid);
         $s = shell_exec('rm merge.png');
+        $s = shell_exec('rm canvas.jpeg');
         header("Location: gallery.php");
     }
 ?>
