@@ -172,5 +172,19 @@
                 echo "Selection failed: " . $e->getMessage();
             } 
         }
+        public function preference($userid)
+        {
+            try{
+                $sql = 'SELECT preference FROM users WHERE userid = :userid';
+                $stmt = $this->conns->prepare($sql);
+                $stmt->bindParam(":userid", $userid);
+                $stmt->execute();
+                $rot = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                return($stmt->fetchAll());
+            }catch (PDOException $e)
+            {
+                echo "Selection failed: " . $e->getMessage();
+            }
+        }
     }
 ?>

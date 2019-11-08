@@ -26,7 +26,7 @@ class createuser{
         $stmt->bindParam(":passwd", hash("md5",$this->passw));
         $stmt->execute();
         $vkey = md5(time());
-        $mail = new send_mail("$this->email","<a href=http://localhost:8080/camagru/email_verify.php?vkey=$vkey>click</a>" ,"confirmation");
+        $mail = new send_mail("$this->email","<a href=http://localhost:8080/Instagru/email_verify.php?vkey=$vkey>click</a>" ,"confirmation");
         $mail->send_mail(); 
         $sql = 'UPDATE users SET vkey = :vkey WHERE username = :username'; echo 'a';
         $stmt = $this->conns->prepare($sql); echo 'b';
@@ -38,7 +38,7 @@ class createuser{
     }
     public function tbuser()
     {
-        $sql = "CREATE TABLE IF NOT EXISTS users(userid  INT(10) AUTO_INCREMENT PRIMARY KEY, username VARCHAR(150) NOT NULL, fullname VARCHAR(150) NOT NULL, email VARCHAR(150) NOT NULL, passwd VARCHAR(150) NOT NULL, vkey VARCHAR(50), verify INT(1) DEFAULT(0))";
+        $sql = "CREATE TABLE IF NOT EXISTS users(userid  INT(10) AUTO_INCREMENT PRIMARY KEY, username VARCHAR(150) NOT NULL, fullname VARCHAR(150) NOT NULL, email VARCHAR(150) NOT NULL, passwd VARCHAR(150) NOT NULL, vkey VARCHAR(50), verify INT(1) DEFAULT(0), preference tinyint(1) NOT NULL DEFAULT (1))";
         $stmt = $this->conns->prepare($sql);
         $stmt->execute();
     }

@@ -16,10 +16,14 @@
     {
         if($retrive['comment'] && $retrive['userid'] && $_SESSION['userid'] && $retrive['imagenu'])
         {
+            // print_r($retrive);
+            // exit();
+            $reciever_id = $retrive['userid'];
             include_once('commentnlike.php');
             $ad = new commentnlike();
             $ad->addcomment($retrive['comment'], $uid, $retrive['userid'], $retrive['imagenu']);
-            $ad->emailcomment($uid, 'comment');
+            //if ($_POST["email_preference"] == "1")
+                $ad->emailcomment($reciever_id, 'comment');
             unset($ad);
             header('location: index.php');
         }
@@ -57,10 +61,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gallery</title>
-
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
+    <div class="balls">
         <?php
             include_once('./picdb.php');
             include_once('commentnlike.php');
@@ -71,6 +75,8 @@
             while($i < count($display))
             {
                 echo '<div style="width: 450px; hight: 450px; margin-left: 450px; margin-bottom: 30px;"><div><img src="'.$display[$i]['images'].'" style="width: 450px; hight: 450px;"></div>';
+                echo $display[$i]['userid'];
+                // exit();
                 if($_SESSION['userid'])
                 {
                     $lik = count($hold->getlikes($display[$i]['num']));

@@ -17,11 +17,12 @@
     $pref = $retrive['email_preference'];
     if (!$_SESSION['userid'])
         header('Location: login.php');
+    
     if ($retrive['submit'])
     {
         if ($pwd === $curentpassword )
         {
-            if(!$email && !$name && !$uname && !$password){
+            if(!$email && !$name && !$uname && !$password && !$pref){
                 $error_msg = "Nothing changed";
                 echo $error_msg;
             }  
@@ -49,6 +50,11 @@
                     }
                 }
                 if (isset($pref)){
+                    $sql = 'UPDATE users SET preference = true WHERE userid = :userid';
+                    $stmt = $this->conns->prepare($sql);
+                    $stmt->bindParam(":userid", $id[0]['userid']);
+                    $stmt->execute();
+
                     if ($_POST['name'])
                         mail($id[0]['email'], "CAMAGRU account updated", "Hi " .$id[0]['username'].",\n\nYou have changed your fullname.\n\nRegards\nCAMAGRU", "FROM:(CAMAGRU)camagruca@gmail.com");
                     if ($_POST['email'])
@@ -64,6 +70,8 @@
         }
 
     }
+
+    $check = $va->preference($id[0]['userid']); // database value that is going to be returned
 ?>
 
 <!DOCTYPE html>
@@ -86,13 +94,49 @@
             </div>
             <div class="form_reg">
                 <form action="" method="post">
-                    <p><input type="email" name="email" id="email" placeholder="Edit Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email format"></p>
-                    <p><input type="text" name="name" placeholder="Edit Full Name" id="name"></p>
-                    <p> <input type="text" name="username" placeholder="Edit Username" id="username" pattern="[A-Za-z0-9]{6,}"></p>
+                    <p><input type="email" name="email" id="email" placeholder=<?php echo $id[0]['email'];?> pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email format"></p>
+                    <p><input type="text" name="name" placeholder="<?php echo $id[0]['fullname'];?>" id="name"></p>
+                    <p> <input type="text" name="username" placeholder=<?php echo $id[0]['username'];?> id="username" pattern="[A-Za-z0-9]{6,}"></p>
                     <p><input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Change Password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
                     <p><input type="password" name="curentpassword" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Enter current Password" required></p>
-                    <p><input type="checkbox" name="email_preference" value="" checked> Receive email Notification?</p>
                     <p><input type="submit" value="Update" name="submit" id="submit"></p>
+                </form>
+            </div>
+            <?php
+                $session_user_id = $id[0]['userid'];
+                if (isset($_POST['update_pref']))
+                {
+                    require("connection.php");
+                    if (isset($_POST['email_not']))
+                    {
+                        $sql = 'UPDATE users SET preference = true WHERE userid = 13';
+                        $stmt = $conn->prepare($sql);
+                        //$stmt->bindParam(1, $session_user_id);
+                        if ($stmt->execute())
+                        {
+                            echo "updated<br>";
+                        }
+                    }
+                    else
+                    {
+                        $sql = 'UPDATE users SET preference = false WHERE userid = 13';
+                        $stmt = $conn->prepare($sql);
+                        //$stmt->bindParam(":userid", $session_user_id);
+                        if ($stmt->execute())
+                        {
+                            echo "updated<br>";
+                        }
+                    }
+                }
+                echo $session_user_id."<br>";
+                $prefence = $check[0]['preference'];
+                echo $prefence;
+            ?>
+            <div class="form_reg">
+                <form method="post">
+    
+                    <input type="checkbox" name="email_not" <?php echo ($prefence == true)?"checked":""; ?>><br>
+                    <input type="submit" name="update_pref" value="update prefernces">
                 </form>
             </div>
     </div>

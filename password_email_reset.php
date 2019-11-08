@@ -10,7 +10,7 @@
             echo "3";
             if ($valid->email_verified($email)){
                 $vkey = md5(time());
-                $mail = new send_mail("$email","<a href=http://localhost:8080/camagru/resetPassword.php?vkey=$vkey>reset password</a>" ,"password reset");
+                $mail = new send_mail("$email","<a href=http://localhost:8080/Instagru/resetPassword.php?vkey=$vkey>reset password</a>" ,"password reset");
                 $mail->send_mail();
                 $sql = 'UPDATE users SET vkey = :vkey WHERE email = :email'; echo 'a';
                 $stmt = $conn->prepare($sql); echo 'b';
