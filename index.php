@@ -4,8 +4,8 @@
     // ini_set('display_startup_errors', 1);
     // error_reporting(E_ALL);
     include "connection.php";
-    include ('val.php');
-    include 'nev1.php';
+    include ('desp.php');
+    include './navigation/nev1.php';
     $bar = new va;
     $id = $bar->get_user($_SESSION['userid']);
     $uid = $id[0]['userid'];
@@ -15,12 +15,15 @@
         $retrive[$key] = $value;
     if ($_SESSION["userid"]  && isset($_POST["submit"]))
     {
+        $chek = $va->fetc_pref($id[0]['userid']);
+        $cheked = $chek[0]['pref'];
         if($retrive['comment'] && $retrive['userid'] && $_SESSION['userid'] && $retrive['imagenu'])
         {
             include_once('commentnlike.php');
             $ad = new commentnlike();
             $ad->addcomment($retrive['comment'], $uid, $retrive['userid'], $retrive['imagenu']);
-            $ad->emailcomment($uid, 'comment');
+            if ($cheked == 1)
+                $ad->emailcomment($retrive['userid'], 'comment');
             unset($ad);
             header('location: index.php');
         }
@@ -31,7 +34,8 @@
             include_once('commentnlike.php');
             $ad = new commentnlike();
             $ad->addlike($uid, $retrive['like'], $retrive['imagenu']);
-            $ad->emailcomment($uid, 'like');
+            if ($cheked == 1)
+                $ad->emailcomment($retrive['userid'], 'like');
             unset($ad);
             header('location: index.php');
         }
@@ -53,7 +57,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gallery</title>
+    <link rel="stylesheet" href="main.css">
+    <title>PublicGallery</title>
 
 </head>
 <body>

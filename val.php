@@ -26,6 +26,22 @@
             }
             return 1;
         }
+        public function test_user1($uname)
+        {
+            try{
+                $sql = 'SELECT * FROM users WHERE username = :uname;';
+                $stmt = $this->conns->prepare($sql);
+                $stmt->bindParam(":uname", $uname);
+                $stmt->execute();
+                $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                if (count($stmt->fetchAll()))
+                    return 0;
+            }catch (PDOException $e)
+            {
+                echo "Selection failed: " . $e->getMessage();
+            }
+            return 1;
+        }
 
         /*     */
         public function test_password($password)
@@ -40,6 +56,22 @@
         {
             if (!filter_var($email, FILTER_VALIDATE_EMAIL))
                 return 0;
+            try{
+                $sql = 'SELECT * FROM users WHERE email = :email;';
+                $stmt = $this->conns->prepare($sql);
+                $stmt->bindParam(":email", $email);
+                $stmt->execute();
+                $rot = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                if (count($stmt->fetchAll()))
+                    return 0;
+            }catch (PDOException $e)
+            {
+                echo "Selection failed: " . $e->getMessage();
+            }
+            return 1;
+        }
+        public function test_email1($email)
+        {
             try{
                 $sql = 'SELECT * FROM users WHERE email = :email;';
                 $stmt = $this->conns->prepare($sql);
@@ -112,16 +144,31 @@
         public function updatekey($vkey)
         {
             try{
-                $sql = 'UPDATE users SET verify = 1 WHERE vkey = :vkey'; echo 'a';
-                $stmt = $this->conns->prepare($sql); echo 'b';
+                $sql = 'UPDATE users SET verify = 1 WHERE vkey = :vkey';
+                $stmt = $this->conns->prepare($sql);
                 $stmt->bindParam(':vkey', $vkey);
-                $stmt->execute(); echo 'g';
+                $stmt->execute();
                 return 1;
             }catch (PDOException $e)
             {
                 echo "Selection failed: " . $e->getMessage();
             } 
             
+        }
+        public function fetc_pref($uid)
+        {
+            try{
+                $sql = 'SELECT pref FROM users WHERE userid = :uids';
+                $stmt = $this->conns->prepare($sql);
+                $stmt->bindParam(":uids", $uid);
+                $stmt->execute();
+                $rot = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                return ($stmt->fetchAll());
+            }catch (PDOException $e)
+            {
+                echo "Selection failed: " . $e->getMessage();
+            }
+
         }
 
         public function email_verified($username)

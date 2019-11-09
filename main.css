@@ -1,0 +1,11 @@
+
+body{
+  background-color: #a0adb6;
+  width: 100%;
+  height: 100%;
+}
+
+.nev {
+    background-color: #bcbed5;
+    overflow: hidden;
+  }

@@ -3,15 +3,15 @@
     ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
 
     session_start();
+    include "desp.php";
     include('./usermngt.php');
-    include('./val.php');
+    // include('./val.php');
 
     $va = new va();
     $id = $va->get_user($_SESSION['userid']);
     if ($_SESSION['userid']){ 
-        echo 'You are logged in as ' .$id[0]['username'] .'<br>';
-
-        if (isset($_POST['submit'])) {
+       
+            if (isset($_POST['submit'])) {
             $uid = $id[0]['userid'];
             $file = $_FILES['image'];
 
@@ -59,18 +59,13 @@
         }
 }else {
     echo 'You are not Logged in! '."<a href='Login.php'>login here</a><br>";
-}
+}    
+?>
 
-// if(isset($_POST['submitdelete']))
-// {
-//     $var = new images();
-//     $uid = $id[0]['userid'];
-//     $pid = $_POST['submitdelete'];
-//     $var->deletepost($uid ,$pid);
-// }
-    
-?> 
 <html>
+    <header>
+        <title>UploadFile</title>
+    </header>
     <body>
     <?php
     if ($_SESSION['userid']){

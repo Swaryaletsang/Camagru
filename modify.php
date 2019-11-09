@@ -1,11 +1,14 @@
 <?php
+//remove when doe or before marking
+// ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
     session_start();   
     include('./val.php');
     include('./usermngt.php');
+
     $retrive = array();
-    $play = array();
     foreach($_POST as $key => $value)
         $retrive[$key] = $value;
+    $var = new createuser($email, $name, $uname, $password);
     $va = new va();
     $id = $va->get_user($_SESSION['userid']);
     $uname = $retrive['username'];
@@ -14,7 +17,8 @@
     $password = $retrive['password'];
     $curentpassword = $retrive['curentpassword'];
     $pwd = $_SESSION['pwd'];
-    $pref = $retrive['email_preference'];
+    $chek = $va->fetc_pref($id[0]['userid']);
+    $cheked = $chek[0]['pref'];
     if (!$_SESSION['userid'])
         header('Location: login.php');
     if ($retrive['submit'])
@@ -35,10 +39,7 @@
                 if (!$uname)
                     $uname = $id[0]['username'];
                 if ($email || $name || $uname || $password){
-                    $va = new va();
                     if ($va->test_email($retrive['email']) || $va->test_password($retrive['password']) || $va->test_user($retrive['username'])){
-
-                        $var = new createuser($email, $name, $uname, $password);
                         $var->update_profile($id[0]['userid']); 
                     }
                     else {
@@ -48,7 +49,7 @@
                             echo "Username already exist!";
                     }
                 }
-                if (isset($pref)){
+                if ($cheked == 1){
                     if ($_POST['name'])
                         mail($id[0]['email'], "CAMAGRU account updated", "Hi " .$id[0]['username'].",\n\nYou have changed your fullname.\n\nRegards\nCAMAGRU", "FROM:(CAMAGRU)camagruca@gmail.com");
                     if ($_POST['email'])
@@ -63,6 +64,24 @@
              
         }
 
+    }
+    if (isset($_POST['prfn']))
+    {
+        if (isset($_POST['email_preference'])){
+            include('./connection.php');
+            $sql = 'UPDATE users SET pref = 1 WHERE userid = :userid';
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(":userid", $id[0]['userid']);            
+            $stmt->execute();
+        
+        }
+        else {
+            include('./connection.php');
+            $sql = 'UPDATE users SET pref = 0 WHERE userid = :userid';
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(":userid", $id[0]['userid']);            
+            $stmt->execute();
+        }     
     }
 ?>
 
@@ -86,13 +105,16 @@
             </div>
             <div class="form_reg">
                 <form action="" method="post">
-                    <p><input type="email" name="email" id="email" placeholder="Edit Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email format"></p>
-                    <p><input type="text" name="name" placeholder="Edit Full Name" id="name"></p>
-                    <p> <input type="text" name="username" placeholder="Edit Username" id="username" pattern="[A-Za-z0-9]{6,}"></p>
+                    <p><input type="email" name="email" id="email" placeholder=<?php echo $id[0]['email'];?> pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email format"></p>
+                    <p><input type="text" name="name" placeholder="<?php echo $id[0]['fullname'];?>" id="name"></p>
+                    <p> <input type="text" name="username" placeholder=<?php echo $id[0]['username'];?> id="username" pattern="[A-Za-z0-9]{6,}"></p>
                     <p><input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Change Password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
                     <p><input type="password" name="curentpassword" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Enter current Password" required></p>
-                    <p><input type="checkbox" name="email_preference" value="" checked> Receive email Notification?</p>
                     <p><input type="submit" value="Update" name="submit" id="submit"></p>
+                </form>
+                <form action="" method="POST">
+                    <p><input type="checkbox" name="email_preference" <?php echo ($cheked == 1)?"checked":"";?>> Receive email Notification?</p>
+                    <p><input type="submit" value="Change Email Preferences" name="prfn" id="submit"></p>
                 </form>
             </div>
     </div>

@@ -34,25 +34,40 @@ class createuser{
         $stmt->bindParam(":username", $this->uname);
         $stmt->execute(); echo 'g';
         header("location: message.php");
-        echo "qwe";
     }
     public function tbuser()
     {
-        $sql = "CREATE TABLE IF NOT EXISTS users(userid  INT(10) AUTO_INCREMENT PRIMARY KEY, username VARCHAR(150) NOT NULL, fullname VARCHAR(150) NOT NULL, email VARCHAR(150) NOT NULL, passwd VARCHAR(150) NOT NULL, vkey VARCHAR(50), verify INT(1) DEFAULT(0))";
+        $sql = "CREATE TABLE IF NOT EXISTS users(userid  INT(10) AUTO_INCREMENT PRIMARY KEY, username VARCHAR(150) NOT NULL, fullname VARCHAR(150) NOT NULL, email VARCHAR(150) NOT NULL, passwd VARCHAR(150) NOT NULL, vkey VARCHAR(50), verify INT(1) DEFAULT(0), pref TINYINT(1) DEFAULT(1))";
         $stmt = $this->conns->prepare($sql);
         $stmt->execute();
     }
     public function update_profile($id){
-        $sql = 'UPDATE users SET username = :username, fullname = :fullname, email = :email, passwd = :passwd WHERE userid = :userid';
+        $sql = 'UPDATE users SET username = :username, fullname = :fullname, email = :email, passwd = :passwd, pref = :pref WHERE userid = :userid';
         $stmt = $this->conns->prepare($sql);
         $stmt->bindParam(":username", $this->uname);
         $stmt->bindParam(":fullname", $this->name);
         $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":email", $this->email);
         $stmt->bindParam(":passwd", hash("md5",$this->passw));
         $stmt->bindParam(":userid", $id);
+
         $stmt->execute();
-        echo "updated";
     }
+    // public function preferenceUpdate($uid){
+    //     if (isset($pref)){
+    //         $sql = 'UPDATE users SET pref = 1 WHERE userid = :userid';
+    //         $stmt = $this->conns->prepare($sql);
+    //         $stmt->bindParam(":userid", $uid);            
+    //         $stmt->execute();
+        
+    //     }
+    //     else {
+    //         $sql = 'UPDATE users SET pref = 0 WHERE userid = :userid';
+    //         $stmt = $this->conns->prepare($sql);
+    //         $stmt->bindParam(":userid", $uid);            
+    //         $stmt->execute();
+    //     }
+    // }
     public function __destruct(){
         $this->conns = NULL;
     }
