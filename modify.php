@@ -109,9 +109,9 @@
                     require("connection.php");
                     if (isset($_POST['email_not']))
                     {
-                        $sql = 'UPDATE users SET preference = true WHERE userid = 13';
+                        $sql = 'UPDATE users SET preference = true WHERE userid = ?';
                         $stmt = $conn->prepare($sql);
-                        //$stmt->bindParam(1, $session_user_id);
+                        $stmt->bindParam(1, $id[0]['userid']);
                         if ($stmt->execute())
                         {
                             echo "updated<br>";
@@ -119,9 +119,9 @@
                     }
                     else
                     {
-                        $sql = 'UPDATE users SET preference = false WHERE userid = 13';
+                        $sql = 'UPDATE users SET preference = false WHERE userid = ?';
                         $stmt = $conn->prepare($sql);
-                        //$stmt->bindParam(":userid", $session_user_id);
+                        $stmt->bindParam(1, $id[0]['userid']);
                         if ($stmt->execute())
                         {
                             echo "updated<br>";

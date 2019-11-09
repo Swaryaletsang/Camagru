@@ -1,7 +1,7 @@
 <?php
     session_start();
-    // ini_set('display_errors', 1);
-    // ini_set('display_startup_errors', 1);
+    ini_set('display_errors', 1);
+     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
     include "connection.php";
     include ('val.php');
@@ -11,19 +11,26 @@
     $retrive = array();
     $not_val = "";
     foreach($_POST as $key => $value)
+    {
         $retrive[$key] = $value;
+    }
+    
     if ($_SESSION["userid"]  && isset($_POST["submit"]))
     {
         if($retrive['comment'] && $retrive['userid'] && $_SESSION['userid'] && $retrive['imagenu'])
         {
-            // print_r($retrive);
-            // exit();
-            $reciever_id = $retrive['userid'];
             include_once('commentnlike.php');
+            
+            $reciever_id = $retrive['userid'];
+            
+            $image_owner = $bar->get_otherUser($reciever_id);
+            
             $ad = new commentnlike();
             $ad->addcomment($retrive['comment'], $uid, $retrive['userid'], $retrive['imagenu']);
-            //if ($_POST["email_preference"] == "1")
+            if ($image_owner['preference'] == 1)
+            {
                 $ad->emailcomment($reciever_id, 'comment');
+            }
             unset($ad);
             header('location: index.php');
         }

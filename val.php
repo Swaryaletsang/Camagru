@@ -108,14 +108,29 @@
             }
 
         }
+        public function get_otherUser($userid)
+        {
+            try{
+                $sql = 'SELECT preference FROM users WHERE userid = :userid';
+                $stmt = $this->conns->prepare($sql);
+                $stmt->bindParam(":userid", $userid);
+                $stmt->execute();
+                return ($stmt->fetch());
+            }catch (PDOException $e)
+            {
+                echo "Selection failed: " . $e->getMessage();
+            }
+            
+
+        }
 
         public function updatekey($vkey)
         {
             try{
-                $sql = 'UPDATE users SET verify = 1 WHERE vkey = :vkey'; echo 'a';
-                $stmt = $this->conns->prepare($sql); echo 'b';
+                $sql = 'UPDATE users SET verify = 1 WHERE vkey = :vkey';
+                $stmt = $this->conns->prepare($sql);
                 $stmt->bindParam(':vkey', $vkey);
-                $stmt->execute(); echo 'g';
+                $stmt->execute();
                 return 1;
             }catch (PDOException $e)
             {
@@ -128,7 +143,6 @@
         {
             if (preg_match('/[A-Za-z0-9]{6,}/', $username)){
             try{
-                // if (SELECT from user where verifie = 1)
                  $sql = 'SELECT verify FROM users WHERE verify = 1 && username = :username' ;
                  $stmt = $this->conns->prepare($sql);
                  $stmt->bindParam(":username", $username);
