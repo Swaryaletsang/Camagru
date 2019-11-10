@@ -3,16 +3,18 @@
     ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
 
     session_start();
-    include "desp.php";
+    include "./navigation/desp.php";
+    include "./navigation/nev_upload.php";
+    echo "<br>";
     include('./usermngt.php');
     // include('./val.php');
 
     $va = new va();
-    $id = $va->get_user($_SESSION['userid']);
+    $id = $va->get_username($_SESSION['userid']);
     if ($_SESSION['userid']){ 
        
             if (isset($_POST['submit'])) {
-            $uid = $id[0]['userid'];
+            $uid = $_SESSION['userid'];
             $file = $_FILES['image'];
 
             $fileSize = $file['size'];
@@ -22,7 +24,7 @@
             //  --------------------
             include "savimg.php";
             $file_name = $_FILES['image']['name'];
-        $balls = explode('.',$file_name);
+            $balls = explode('.',$file_name);
             $file_ext = strtolower( end($balls));
 
             $file_tmp= $_FILES['image']['tmp_name'];
@@ -64,18 +66,11 @@
 
 <html>
     <header>
+        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="header.css">
         <title>UploadFile</title>
     </header>
     <body>
-    <?php
-    if ($_SESSION['userid']){
-        // echo  "<a href='modify.php'>Edit Profile</a><br>";
-        // echo  "<a href='cam.php'>Take a picture</a><br>";
-        echo "<form action='logout.php' method='POST'>
-            <button type='submit' name='logoutsubmit' id='logoutsubmit'>Logout</button>
-        </form>";
-    }
-    ?>
         <div>
            <?php
 
@@ -85,24 +80,7 @@
             <button type='submit' name='submit'>Upload</button>
             </form>";
             }
-            ?> 
-        </div>
-        <!-- <?php
-        $va = new va();
-        $id = $va->get_user($_SESSION['userid']);
-        $var = new images();
-        $r = $var->displayImage($id[0]['userid']);
-            foreach($r as $row){
-                echo "<div id='img'>";
-                    echo "<img src='uploads/".$row['images']."'>";
-                    echo "<p>".$row['txt']."</p>";
-                   echo " <form action='contents.php' method= 'POST'>
-                    <button class='button' type='submit' name='submitdelete' value='".$row['id']."'>Delete</button>
-                </form>";             
-                echo "</div>";
-            }
-        ?> -->
-    
+            ?>     
 
     </body>    
 </html>

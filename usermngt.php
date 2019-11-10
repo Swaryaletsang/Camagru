@@ -42,7 +42,7 @@ class createuser{
         $stmt->execute();
     }
     public function update_profile($id){
-        $sql = 'UPDATE users SET username = :username, fullname = :fullname, email = :email, passwd = :passwd, pref = :pref WHERE userid = :userid';
+        $sql = 'UPDATE users SET username = :username, fullname = :fullname, email = :email, passwd = :passwd WHERE userid = :userid';
         $stmt = $this->conns->prepare($sql);
         $stmt->bindParam(":username", $this->uname);
         $stmt->bindParam(":fullname", $this->name);
@@ -53,21 +53,7 @@ class createuser{
 
         $stmt->execute();
     }
-    // public function preferenceUpdate($uid){
-    //     if (isset($pref)){
-    //         $sql = 'UPDATE users SET pref = 1 WHERE userid = :userid';
-    //         $stmt = $this->conns->prepare($sql);
-    //         $stmt->bindParam(":userid", $uid);            
-    //         $stmt->execute();
-        
-    //     }
-    //     else {
-    //         $sql = 'UPDATE users SET pref = 0 WHERE userid = :userid';
-    //         $stmt = $this->conns->prepare($sql);
-    //         $stmt->bindParam(":userid", $uid);            
-    //         $stmt->execute();
-    //     }
-    // }
+ 
     public function __destruct(){
         $this->conns = NULL;
     }

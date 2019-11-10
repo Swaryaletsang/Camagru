@@ -1,16 +1,16 @@
 <?php
 //remove when doe or before marking
 // ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
-    session_start();   
-    include('./val.php');
+    session_start(); 
+    include("./navigation/desp.php");
+    include("./navigation/nev_edituser.php");
     include('./usermngt.php');
-
+     
     $retrive = array();
     foreach($_POST as $key => $value)
         $retrive[$key] = $value;
-    $var = new createuser($email, $name, $uname, $password);
     $va = new va();
-    $id = $va->get_user($_SESSION['userid']);
+    $id = $va->get_username($_SESSION['userid']);
     $uname = $retrive['username'];
     $name = $retrive['name'];
     $email = $retrive['email'];
@@ -40,7 +40,8 @@
                     $uname = $id[0]['username'];
                 if ($email || $name || $uname || $password){
                     if ($va->test_email($retrive['email']) || $va->test_password($retrive['password']) || $va->test_user($retrive['username'])){
-                        $var->update_profile($id[0]['userid']); 
+                        $var = new createuser($email, $name, $uname, $password);
+                        $var->update_profile($_SESSION['userid']); 
                     }
                     else {
                         if ($_POST['email'])
@@ -71,16 +72,18 @@
             include('./connection.php');
             $sql = 'UPDATE users SET pref = 1 WHERE userid = :userid';
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(":userid", $id[0]['userid']);            
+            $stmt->bindParam(":userid", $_SESSION['userid']);            
             $stmt->execute();
+            echo "Email preferences changed";
         
         }
         else {
             include('./connection.php');
             $sql = 'UPDATE users SET pref = 0 WHERE userid = :userid';
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(":userid", $id[0]['userid']);            
+            $stmt->bindParam(":userid", $_SESSION['userid']);            
             $stmt->execute();
+            echo "Email preferences changed";
         }     
     }
 ?>
@@ -92,6 +95,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="header.css">
     <title>Edit Account</title>
 </head>
 
@@ -117,7 +122,7 @@
                     <p><input type="submit" value="Change Email Preferences" name="prfn" id="submit"></p>
                 </form>
             </div>
-    </div>
+    </div> 
 
 </body>
 

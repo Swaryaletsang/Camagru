@@ -9,10 +9,9 @@ include('./val.php');
         $va = new va();
         if ($va->valid_login($retrive['username'], $retrive['password'])){
             if ($va->email_verified($retrive['username'])){
-                $_SESSION['userid'] = $retrive["username"];
-                $_SESSION['pwd'] = $retrive['password'];
-                $_SESSION['email'] = $retrive['email'];
-                $_SESSION['name'] = $retrive['fullname'];
+                $id = $va->get_user($retrive["username"]);
+                $uid = $id[0]['userid'];
+                $_SESSION['userid'] = $uid;
                 header("location: index.php");
             }      
             else
@@ -29,6 +28,7 @@ include('./val.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="main.css">
     <title>Login</title>
 </head>
 

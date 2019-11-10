@@ -4,8 +4,9 @@
     // ini_set('display_startup_errors', 1);
     // error_reporting(E_ALL);
     include "connection.php";
-    include ('desp.php');
-    include './navigation/nev1.php';
+    include ('./navigation/desp.php');
+    include './navigation/nev_index.php';
+    echo "<br>";
     $bar = new va;
     $id = $bar->get_user($_SESSION['userid']);
     $uid = $id[0]['userid'];
@@ -58,11 +59,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="header.css">
     <title>PublicGallery</title>
 
 </head>
 <body>
-    <div>
+    <div class="container">
         <?php
             include_once('./picdb.php');
             include_once('commentnlike.php');
@@ -72,7 +74,7 @@
             $i = 0;
             while($i < count($display))
             {
-                echo '<div style="width: 450px; hight: 450px; margin-left: 450px; margin-bottom: 30px;"><div><img src="'.$display[$i]['images'].'" style="width: 450px; hight: 450px;"></div>';
+                echo '<div class="img"><div><img src="'.$display[$i]['images'].'" style="width: 450px; hight: auto;"></div>';
                 if($_SESSION['userid'])
                 {
                     $lik = count($hold->getlikes($display[$i]['num']));
@@ -101,21 +103,7 @@
             }
             unset($hold); 
         ?>
-    </div>
-    <!-- <div>
-    <?php
-        if ($_SESSION["userid"])
-        {
-            echo '<a href="gallery.php">Profile</a> ';
-            echo '<a href="logout.php">logout</a>';
-        }else
-        {
-            echo '<a href="login.php">login</a> ';
-            echo '<a href="register.php">Register</a>';
-        }
-    ?>
-    
-    </div> -->
+
     <script>
         function displays($val, $datess)
         {
@@ -131,5 +119,9 @@
                     <?php
                 }?>
         </form>
+        <?php
+            include ('./footer/footer.php'); 
+        ?>  
+    </div>     
 </body>
 </html>

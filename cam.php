@@ -2,18 +2,16 @@
 //remove when doe or before marking
 // ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
     session_start();
-    include_once('val.php');
+    
     include_once('picpro.php');
     if (!$_SESSION['userid'])
         header('Location: login.php');
-    $bar = new va;
-    $id = $bar->get_user($_SESSION['userid']);
     $uid = $id[0]['userid'];
     if ($_POST['ims'])
     {
         include('savimg.php');
         $ar = new saveimg();
-        $ar->saveimg($_POST['ims'], $uid);
+        $ar->saveimg($_POST['ims'], $_SESSION['userid']);
         $s = shell_exec('rm merge.png');
         $s = shell_exec('rm canvas.jpeg');
         header("Location: gallery.php");
@@ -26,50 +24,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="header.css">
     <title>Edit</title>
  
 </head>
 <body>
-    <div style="float: left; margin-left: 500px;">
-        <form action="cam.php" method="post">
-            <div class="video-wrap" >
-                <video id="video" playsinline autoplay></video>
-            </div>
-
-                <input type="hidden" value="" id="image" name="image">
-            <div class="controller">
-                <button id="snap" type="submit">Capture</button>
-                bat<input type="radio" id="rad" name="rad" value="bat">
-                glass<input type="radio" id="rad" name="rad" value="glass">
-                tree<input type="radio" id="rad" name="rad" value="tree">
-            </div>
-
-            <canvas id="canvas" width="450" height="450" style="float:left;"></canvas>
-        </form>
-    </div>
-    <div style="float: right; width: 400px; hight: auto;">
-        <form action="cam.php" method="post">
-        <?php
-            include_once('./picdb.php');
-            $arr = new picdb();
-            $display = $arr->getsave();
-            $i = 0;
-            while($i < count($display))
-            {
-                echo '<button id="s" name="ims" value="'.$display[$i]['images'].'"><img src="'.$display[$i]['images'].'" style="width: 100px; hight: 100px;" ></button>';
-                $i++;
-            } 
-        ?>
-        </form>
-    </div>
-        <a href="logout.php">logout.php</a>
-
-    <div>
-        <button id="save" style="display: none;">Save</button>
-    </div>
-    <div id="imagediv">
-         <img src="" id="saveimage" style="float: left; border: 1px solid black; margin-left: 10px;">
-    </div>
+    <div class="container">
+    <?php
+    include("./navigation/desp.php");
+    include("./navigation/nev_cam.php");
+    ?>
+    <br>
+        <div style="float: left; margin-left: 500px;">
+            <form action="cam.php" method="post">
+                <div class="video-wrap" >
+                    <video id="video" playsinline autoplay></video>
+                </div>
+    
+                    <input type="hidden" value="" id="image" name="image">
+                <div class="controller">
+                    <button id="snap" type="submit">Capture</button>
+                    bat<input type="radio" id="rad" name="rad" value="bat">
+                    glass<input type="radio" id="rad" name="rad" value="glass">
+                    tree<input type="radio" id="rad" name="rad" value="tree">
+                </div>
+    
+                <canvas id="canvas" width="450" height="450" style="float:left;"></canvas>
+            </form>
+        </div>
+        <div style="float: right; width: 400px; hight: auto;">
+            <form action="cam.php" method="post">
+            <?php
+                include_once('./picdb.php');
+                $arr = new picdb();
+                $display = $arr->getsave();
+                $i = 0;
+                while($i < count($display))
+                {
+                    echo '<button id="s" name="ims" value="'.$display[$i]['images'].'"><img src="'.$display[$i]['images'].'" style="width: 100px; hight: 100px;" ></button>';
+                    $i++;
+                } 
+            ?>
+            </form>
+            <button id="save" style="display: none;">Save</button>
+        </div>
+        <div id="imagediv">
+             <img src="" class="saveimage" id="saveimage" style="float: left; border: 1px solid black; margin-left: 10px;">
+        </div>
+    
+    
     <script>
             'use strict';
             const video = document.getElementById('video');
@@ -105,6 +109,7 @@
             });
 
         </script>
+        </div>
 
 </body>
 </html>

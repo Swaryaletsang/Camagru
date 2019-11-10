@@ -1,11 +1,24 @@
 
-body{
-  background-color: #a0adb6;
-  width: 100%;
-  height: 100%;
+.img{
+    width: 40%;
+     /* height: 25; */
+     margin-left:auto;
+     margin-right: auto;
 }
-
-.nev {
-    background-color: #bcbed5;
-    overflow: hidden;
-  }
+.delete{
+    margin-left:25%;  
+}
+ .container{
+    widows: 100%;
+}
+/* @media(max-width: 500px) {
+    .img{
+      min-width: auto;
+      min-height: auto;
+      float: none;
+      display: left;
+    }
+     .images{
+      float: none;
+    } 
+  } */

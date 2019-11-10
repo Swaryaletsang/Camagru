@@ -140,6 +140,21 @@
             }
 
         }
+        public function get_username($uid)
+        {
+            try{
+                $sql = 'SELECT * FROM users WHERE userid = :usid';
+                $stmt = $this->conns->prepare($sql);
+                $stmt->bindParam(":usid", $uid);
+                $stmt->execute();
+                $rot = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                return ($stmt->fetchAll());
+            }catch (PDOException $e)
+            {
+                echo "Selection failed: " . $e->getMessage();
+            }
+
+        }
 
         public function updatekey($vkey)
         {
