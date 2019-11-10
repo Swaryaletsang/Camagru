@@ -68,10 +68,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gallery</title>
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="flexboxgrid.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="balls">
+    <header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                <h1>INSTAGRU</h1>
+            </div>
+            <div clas="navbar">
+                <nav>
+                    <?php
+                    if ($_SESSION["userid"]){
+                        echo '<ul><li><a href="gallery.php">Profile</a></li> 
+                        <li><a href="logout.php">logout</a></li></ul>';
+                    }else{
+                        echo '<ul><li><a href="login.php">login</a></li> ';
+                        echo '<li><a href="register.php">Register</a></li><ul>';
+                    }
+                    ?>
+                </nav>
+            </div>
+            
+        </div>
+    </div>    
+    
+    
+</header> 
+    <div class="container">
         <?php
             include_once('./picdb.php');
             include_once('commentnlike.php');
@@ -81,7 +108,7 @@
             $i = 0;
             while($i < count($display))
             {
-                echo '<div style="width: 450px; hight: 450px; margin-left: 450px; margin-bottom: 30px;"><div><img src="'.$display[$i]['images'].'" style="width: 450px; hight: 450px;"></div>';
+                echo '<div class="row" style="width: 450px; height: auto; margin-left: 450px; margin-bottom: 30px;"><div><img src="'.$display[$i]['images'].'" style="width: 450px; height: auto;"></div>';
                 echo $display[$i]['userid'];
                 // exit();
                 if($_SESSION['userid'])
@@ -113,27 +140,7 @@
             unset($hold); 
         ?>
     </div>
-    <div>
-    <?php
-        if ($_SESSION["userid"])
-        {
-            echo '<a href="gallery.php">Profile</a> ';
-            echo '<a href="logout.php">logout</a>';
-        }else
-        {
-            echo '<a href="login.php">login</a> ';
-            echo '<a href="register.php">Register</a>';
-        }
-    ?>
-    
-    </div>
-    <script>
-        function displays($val, $datess)
-        {
-            document.getElementById($val).style.display = "initial";
-            document.getElementById($datess).style.display = "none";
-        }
-    </script>
+
         <form action="" method="POST">
             <?php
                 for ($i = 1; $i <= $numlinks; $i++){
@@ -142,5 +149,9 @@
                     <?php
                 }?>
         </form>
+            </container>
+        <footer>
+
+        </footer>
 </body>
 </html>
