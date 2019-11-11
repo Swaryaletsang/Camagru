@@ -35,7 +35,7 @@ include('./val.php');
 
 <body>
     <div style="width:100%;">
-    <div style="width:100%; margin-left:25%; margin-right:25%; margin-top:10%; margin-bottom:auto;">
+    <div style="width:100%; margin-left:10%; margin-right:25%; margin-top:10%; margin-bottom:auto;">
         <div style="width:50%; margin-left:25%; margin-right:25%; margin-top:10%; margin-bottom:0;">
             <div>
                 <p>
