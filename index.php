@@ -68,37 +68,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gallery</title>
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="flexboxgrid.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="main-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-                <h1>INSTAGRU</h1>
-            </div>
-            <div clas="navbar">
-                <nav>
-                    <?php
-                    if ($_SESSION["userid"]){
-                        echo '<ul><li><a href="gallery.php">Profile</a></li> 
+<header>
+        <h1 class="logo">INSTAGRU</h1>
+    <nav class="nav_links">
+        <?php
+            if ($_SESSION["userid"])
+            {
+                echo '<ul><li><a href="gallery.php">Profile</a></li> 
                         <li><a href="logout.php">logout</a></li></ul>';
-                    }else{
-                        echo '<ul><li><a href="login.php">login</a></li> ';
-                        echo '<li><a href="register.php">Register</a></li><ul>';
-                    }
-                    ?>
-                </nav>
-            </div>
-            
-        </div>
-    </div>    
-    
-    
-</header> 
-    <div class="container">
+            }else
+            {
+                echo '<ul><li><a href="login.php">login</a></li> ';
+                echo '<li><a href="register.php">Register</a></li><ul>';
+            }
+        ?>
+    </nav>
+</header>
+<main class="imgs">
+<div class="container">
+    <div class="row center-xs center-sm center-md center-lg">
         <?php
             include_once('./picdb.php');
             include_once('commentnlike.php');
@@ -108,7 +101,10 @@
             $i = 0;
             while($i < count($display))
             {
-                echo '<div class="row" style="width: 450px; height: auto; margin-left: 450px; margin-bottom: 30px;"><div><img src="'.$display[$i]['images'].'" style="width: 450px; height: auto;"></div>';
+                echo '<div class=" me col-xs-12
+                col-sm-12
+                col-md-12
+                col-lg-12" style="width: 450px; height: auto; margin-left: 450px; margin-bottom: 30px;"><div><img src="'.$display[$i]['images'].'" style="width: 450px; height: auto;"></div>';
                 echo $display[$i]['userid'];
                 // exit();
                 if($_SESSION['userid'])
@@ -139,6 +135,7 @@
             }
             unset($hold); 
         ?>
+        </div>
     </div>
 
         <form action="" method="POST">
@@ -149,7 +146,8 @@
                     <?php
                 }?>
         </form>
-            </container>
+</main>
+    
         <footer>
 
         </footer>
