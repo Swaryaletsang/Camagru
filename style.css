@@ -1,10 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:500&display=swap');
+img {
+    height: auto;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
 
-/* * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-} */
+body {
+    width: 100%;
+    background-color: burlywood;
+}
 
 li,
 a {
@@ -48,22 +53,18 @@ header {
     background-color: antiquewhite;
 }
 
-.images {
+.container {
     border: 2px solid red;
+    background-color: antiquewhite;
 }
 
-.me {
-    width: 80%;
-    margin-left: -110px;
-    margin-right: 30%;
+.footer {
+    background-color: rgb(207, 182, 182);
+    text-align: center;
+    margin: auto;
+    width: 98%;
 }
 
-img {
-    width: 80%;
-    margin-left: -110px;
-    margin-right: 30%;
-}
-
-.imgs {
-    background-color: aqua;
+.button {
+    margin-left: 30%;
 }

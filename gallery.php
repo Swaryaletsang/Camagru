@@ -22,9 +22,22 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
     <title>Profile</title>
 </head>
 <body>
+    <header>
+    <h1 class="logo">INSTAGRU</h1>
+    <nav class="nav_links">
+        <ul>
+            <li><a href="cam.php">cam</a></li>
+            <li><a href="logout.php">logout</a></li>
+            <li><a href="contents.php">upload</a></li>
+            <li><a href="modify.php">edituser</a></li>
+            <li><a href="index.php">public</a> </li> 
+        </ul>
+</nav>
+    </header>
     <div>
         <?php
             $var = new va;
@@ -38,7 +51,7 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
             $i = 0;
             while($i < count($display))
             {
-                echo '<div><img src="'.$display[$i]['images'].'" style="width: 450px; hight: 450px; margin-left: 450px;" ><div>';
+                echo '<div><img src="'.$display[$i]['images'].'"><div>';
                 echo " <form action='gallery.php' method= 'POST'>
                 <button class='button' type='submit' name='submitdelete' value='".$display[$i]['num']."'>Delete</button>
             </form>";             
@@ -48,12 +61,12 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
             
         ?>
     </div>
-    <div>
-    <a href="cam.php">cam</a>
-    <a href="logout.php">logout</a>
-    <a href="contents.php">upload</a>
-    <a href="modify.php">edituser</a>
-    <a href="index.php">public</a>
-    </div>
+    <footer>
+            <div class="footer">
+                <h3>Instagru</h3>
+                <p>&copy atau</p>
+            </div>
+ 
+        </footer>
 </body>
 </html>

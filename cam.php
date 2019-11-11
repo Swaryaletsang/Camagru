@@ -27,9 +27,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Edit</title>
+    <link rel="stylesheet" href="style.css">
  
 </head>
 <body>
+<header>
+    <h1 class="logo">INSTAGRU</h1>
+    <nav class="nav_links">
+        <ul>
+            <li><a href="logout.php">logout</a></li>
+            <li><a href="contents.php">upload</a></li>
+            <li><a href="modify.php">edituser</a></li>
+            <li><a href="index.php">public</a> </li> 
+        </ul>
+</nav>
+    </header>
     <div style="float: left; margin-left: 500px;">
         <form action="cam.php" method="post">
             <div class="video-wrap" >
@@ -44,7 +56,7 @@
                 tree<input type="radio" id="rad" name="rad" value="tree">
             </div>
 
-            <canvas id="canvas" width="450" height="450" style="float:left;"></canvas>
+            <canvas id="canvas" width="450" height="450" style="float:left; display: none"></canvas>
         </form>
     </div>
     <div style="float: right; width: 400px; hight: auto;">
@@ -56,13 +68,12 @@
             $i = 0;
             while($i < count($display))
             {
-                echo '<button id="s" name="ims" value="'.$display[$i]['images'].'"><img src="'.$display[$i]['images'].'" style="width: 100px; hight: 100px;" ></button>';
+                echo '<button id="s" name="ims" value="'.$display[$i]['images'].'"><img src="'.$display[$i]['images'].'" style="width: 100px; margin-left:-6px; theight: 100px;" ></button>';
                 $i++;
             } 
         ?>
         </form>
     </div>
-        <a href="logout.php">logout.php</a>
 
     <div>
         <button id="save" style="display: none;">Save</button>
@@ -105,6 +116,12 @@
             });
 
         </script>
-
+<footer>
+            <div class="footer">
+                <h3>Instagru</h3>
+                <p>&copy atau</p>
+            </div>
+ 
+        </footer>
 </body>
 </html>

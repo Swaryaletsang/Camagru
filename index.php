@@ -68,8 +68,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gallery</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="flexboxgrid.css">
+     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="flexboxgrid.css"> -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -89,9 +89,7 @@
         ?>
     </nav>
 </header>
-<main class="imgs">
-<div class="container">
-    <div class="row center-xs center-sm center-md center-lg">
+<main class="imgs" style="width:100%;">
         <?php
             include_once('./picdb.php');
             include_once('commentnlike.php');
@@ -101,33 +99,26 @@
             $i = 0;
             while($i < count($display))
             {
-                echo '<div class=" me col-xs-12
-                col-sm-12
-                col-md-12
-                col-lg-12" style="width: 450px; height: auto; margin-left: 450px; margin-bottom: 30px;"><div><img src="'.$display[$i]['images'].'" style="width: 450px; height: auto;"></div>';
-                echo $display[$i]['userid'];
-                // exit();
+                echo '<div ><div style="width:100%;"><img src="'.$display[$i]['images'].'"></div>';
                 if($_SESSION['userid'])
                 {
                     $lik = count($hold->getlikes($display[$i]['num']));
 
                     $holds = $hold->getcomments($display[$i]['num']);
-                    echo '<div id="'.$display[$i]['timess'].'"><button id="'.$display[$i]['timess'].'" onclick="displays('.$display[$i]['num'].','.$display[$i]['timess'].')">comment '.count($holds).'</button>';
-                    echo '<form action="index.php" method="post"><button id="'.$display[$i]['timess'].'" type="submit" name="like" value="'.$display[$i]['userid'].'">like '.$lik.'</button>';
+                    echo '<div id="'.$display[$i]['timess'].'"><button style="margin-left: 30%;" disabled id="'.$display[$i]['timess'].'" onclick="displays('.$display[$i]['num'].','.$display[$i]['timess'].')">comments: '.count($holds).'</button>';
+                    echo '<form action="index.php" method="post"><button id="'.$display[$i]['timess'].'" type="submit" style="margin-left: 30%;" name="like" value="'.$display[$i]['userid'].'">like '.$lik.'</button>';
                     echo '<input type="hidden" name="imagenu" value="'.$display[$i]['num'].'"></form></div><br/>';
-
-                    // echo '<div id="'.$display[$i]['num'].'" style="display:none;">';
                     echo '<div id="'.$display[$i]['num'].'" >';
                     $j = 0;
                     while($j < count($holds))
                     {
-                       echo '<textarea rows="4" cols="50" disabled>'.$holds[$j]['comment'].'</textarea>';
+                       echo '<textarea style="width:30%; margin-left: 30%; margin-right: 30%;" rows="4" cols="50" disabled>'.$holds[$j]['comment'].'</textarea>';
                        $j++;
                     }
-                    echo '<form action="index.php" method="post"><textarea name="comment"  id="'.$display[$i]['num'].'" rows="4" cols="50"></textarea>';
+                    echo '<form action="index.php" method="post"><textarea style="width:40%; margin-left: 30%; margin-right: 30%;" name="comment"  id="'.$display[$i]['num'].'" rows="4" cols="50"></textarea>';
                     echo '<input type="hidden" name="userid" value="'.$display[$i]['userid'].'">';
                     echo '<input type="hidden" name="imagenu" value="'.$display[$i]['num'].'">';
-                    echo '<button type="submit" value="comment" id="'.$display[$i]['num'].'" name="submit">comment</button></form></div>';
+                    echo '<button style="margin-left: 30%;" type="submit" value="comment" id="'.$display[$i]['num'].'" name="submit">comment</button></form></div>';
                     unset($holds);
                 }
                 echo '</div>';
@@ -135,10 +126,8 @@
             }
             unset($hold); 
         ?>
-        </div>
-    </div>
-
-        <form action="" method="POST">
+            <div class="page">
+                <form action="" method="POST">
             <?php
                 for ($i = 1; $i <= $numlinks; $i++){
                     ?>
@@ -146,10 +135,16 @@
                     <?php
                 }?>
         </form>
+            </div>
+        
 </main>
     
         <footer>
-
+            <div class="footer">
+                <h3>Instagru</h3>
+                <p>&copy atau</p>
+            </div>
+ 
         </footer>
 </body>
 </html>
