@@ -30,30 +30,32 @@
  
 </head>
 <body>
-    <div class="container">
+    <div style="width:100%;">
     <?php
     include("./navigation/desp.php");
     include("./navigation/nev_cam.php");
     ?>
     <br>
-        <div style="float: left; margin-left: 500px;">
+    <div style= "width: 100%; height: auto;">
+
+        <div style="float: left; margin-left: 20%; heigt: auto; width: 40%;">
             <form action="cam.php" method="post">
                 <div class="video-wrap" >
-                    <video id="video" playsinline autoplay></video>
+                    <video id="video" playsinline autoplay style="width: 100%; max-height: 100%;"></video>
                 </div>
     
                     <input type="hidden" value="" id="image" name="image">
-                <div class="controller">
+                <div style="width:100%; max-width:500px;">
                     <button id="snap" type="submit">Capture</button>
                     bat<input type="radio" id="rad" name="rad" value="bat">
                     glass<input type="radio" id="rad" name="rad" value="glass">
                     tree<input type="radio" id="rad" name="rad" value="tree">
                 </div>
     
-                <canvas id="canvas" width="450" height="450" style="float:left;"></canvas>
+                <canvas id="canvas" width="450" height="450" style="float:left; width: 100%; max-height: 100%;"></canvas>
             </form>
         </div>
-        <div style="float: right; width: 400px; hight: auto;">
+        <div style="float: right; width: 35%; hight: auto;">
             <form action="cam.php" method="post">
             <?php
                 include_once('./picdb.php');
@@ -62,7 +64,7 @@
                 $i = 0;
                 while($i < count($display))
                 {
-                    echo '<button id="s" name="ims" value="'.$display[$i]['images'].'"><img src="'.$display[$i]['images'].'" style="width: 100px; hight: 100px;" ></button>';
+                    echo '<button id="s" name="ims" value="'.$display[$i]['images'].'"><img src="'.$display[$i]['images'].'" style="width: 30%; hight: auto; margin:0%" ></button>';
                     $i++;
                 } 
             ?>
@@ -70,9 +72,10 @@
             <button id="save" style="display: none;">Save</button>
         </div>
         <div id="imagediv">
-             <img src="" class="saveimage" id="saveimage" style="float: left; border: 1px solid black; margin-left: 10px;">
+             <img src="" class="saveimage" id="saveimage" style="border: 1px solid black; margin-left: 0%; width:100%;">
         </div>
-    
+    </div>
+
     
     <script>
             'use strict';
@@ -110,6 +113,10 @@
 
         </script>
         </div>
-
+        <div style="margin-top: 100%;">
+        <?php
+            include ('./footer/footer.php'); 
+        ?>
+        </div>
 </body>
 </html>

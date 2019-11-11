@@ -29,12 +29,14 @@ include('./val.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="header.css">
     <title>Login</title>
 </head>
 
 <body>
-    <div class="Container">
-        <div class="box-1">
+    <div style="width:100%;">
+    <div style="width:100%; margin-left:25%; margin-right:25%; margin-top:10%; margin-bottom:auto;">
+        <div style="width:50%; margin-left:25%; margin-right:25%; margin-top:10%; margin-bottom:0;">
             <div>
                 <p>
                     <h1>CAMAGRU</h1>
@@ -42,7 +44,7 @@ include('./val.php');
             </div>
             <div class="form_reg"> 
                 <div><?php echo $not_val;?></div>
-                <form method="POST">
+                <form method="POST" style="">
                     <p><input type="text" name="username" placeholder="Username" id="username" required></p>
                     <p><input type="password" name="password" id="password" placeholder="Password" required></p>
                     <p> <input type="submit" value="Login" name="submit" id="submit"></p>
@@ -52,9 +54,10 @@ include('./val.php');
                 <p> <a href="forgotPass.php"> forgot password</a></p>
             </div>
         </div>
-        <div class="box-2">
+        <div style="width:50%; margin-left:25%; margin-right:25%; margin-bottom:auto; max-width:500px; float:none;">
             <p>Don't have an account? <a href="Register.php">Sign up</a></p>
         </div>
+    </div>
     </div>
 
 </body>

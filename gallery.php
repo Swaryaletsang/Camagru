@@ -2,7 +2,7 @@
 //remove when doe or before marking
 ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
     session_start();
-  
+    
     include("usermngt.php");
     if (!$_SESSION['userid'])
         header('location:login.php');
@@ -12,6 +12,16 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
         $pid = $_POST['submitdelete'];
         $var->deletepost($_SESSION['userid'] ,$pid);
     }
+    include "connection.php";
+    $numperpage = 5;
+    $sql1 = "SELECT * FROM userimage ORDER BY timess DESC";
+    $stmt1 = $conn->prepare($sql1);
+    $stmt1->execute();
+    $re = $stmt1->setFetchMode(PDO::FETCH_ASSOC);
+    $rows = $stmt1->fetchAll();
+
+    $numrecords = count($rows);
+    $numlinks = ceil($numrecords/$numperpage);
 
 ?>
 
@@ -34,7 +44,7 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
                
             include_once('./picdb.php');
             $arr = new picdb();
-            $display = $arr->getalluser($_SESSION['userid']);
+            $display = $arr->getall();
           
             $i = 0;
             while($i < count($display))
@@ -49,6 +59,14 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
             
         ?>
     </div>
+    <form action="" method="POST">
+            <?php
+                for ($i = 1; $i <= $numlinks; $i++){
+                    ?>
+                    <input type="submit" value= "<?php echo $i;?>" name = "page">
+                    <?php
+                }?>
+        </form>
     <?php
             include ('./footer/footer.php'); 
         ?>   
