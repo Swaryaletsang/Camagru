@@ -1,12 +1,9 @@
 <?php
-ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
-/*
-    BECAUSE OF A LOT OF BUGS FROM THE OOP METHOD, PROCEDURAL W 
-*/
+error_reporting(0);
 include("val.php");
 $db_servername = "localhost";
 $db_username = "root";
-$db_password = "123456";
+$db_password = "qwerty";
 try {
        $conn = new PDO("mysql:host=".$db_servername.";dbname=camagru", $db_username, $db_password);
        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

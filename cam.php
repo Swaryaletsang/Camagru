@@ -1,6 +1,5 @@
 <?php
-//remove when doe or before marking
-// ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+error_reporting(0);
     session_start();
     include_once('val.php');
     include_once('picpro.php');
@@ -45,7 +44,7 @@
     <div style="float: left; margin-left: 500px;">
         <form action="cam.php" method="post">
             <div class="video-wrap" >
-                <video id="video" playsinline autoplay></video>
+                <video id="video" playsinline autoplay style="margin-left:0;"></video>
             </div>
 
                 <input type="hidden" value="" id="image" name="image">
@@ -68,7 +67,7 @@
             $i = 0;
             while($i < count($display))
             {
-                echo '<button id="s" name="ims" value="'.$display[$i]['images'].'"><img src="'.$display[$i]['images'].'" style="width: 100px; margin-left:-6px; theight: 100px;" ></button>';
+                echo '<button id="s" name="ims" value="'.$display[$i]['images'].'"><img src="'.$display[$i]['images'].'" style="width: 100px; margin-left:6px; height: 100px;" ></button>';
                 $i++;
             } 
         ?>
@@ -90,7 +89,7 @@
             const errorMsgElement = document.getElementById('span#ErrorMsg');
             const constraints = {
                 video:{
-                    width: 450, height: 450
+                    width: 400, height: 400
                 }
             };
             async function init()
@@ -116,12 +115,5 @@
             });
 
         </script>
-<footer>
-            <div class="footer">
-                <h3>Instagru</h3>
-                <p>&copy atau</p>
-            </div>
- 
-        </footer>
 </body>
 </html>

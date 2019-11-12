@@ -1,6 +1,5 @@
 <?php
-// $ccc = New dbhandler extends dbhandler();
-// $ccc->connect();
+error_reporting(0);
 include("send_mail.php");
 class createuser{
     private $email;
@@ -28,13 +27,12 @@ class createuser{
         $vkey = md5(time());
         $mail = new send_mail("$this->email","<a href=http://localhost:8080/Instagru/email_verify.php?vkey=$vkey>click</a>" ,"confirmation");
         $mail->send_mail(); 
-        $sql = 'UPDATE users SET vkey = :vkey WHERE username = :username'; echo 'a';
-        $stmt = $this->conns->prepare($sql); echo 'b';
-        $stmt->bindParam(":vkey", $vkey);  echo 'c';
+        $sql = 'UPDATE users SET vkey = :vkey WHERE username = :username';
+        $stmt = $this->conns->prepare($sql);
+        $stmt->bindParam(":vkey", $vkey);
         $stmt->bindParam(":username", $this->uname);
-        $stmt->execute(); echo 'g';
+        $stmt->execute();
         header("location: message.php");
-        echo "qwe";
     }
     public function tbuser()
     {

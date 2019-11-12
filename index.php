@@ -1,21 +1,21 @@
 <?php
     session_start();
-    ini_set('display_errors', 1);
-     ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+    error_reporting(0);
     include "connection.php";
     include ('val.php');
-    $bar = new va;
-    $id = $bar->get_user($_SESSION['userid']);
-    $uid = $id[0]['userid'];
-    $retrive = array();
-    $not_val = "";
-    foreach($_POST as $key => $value)
-    {
-        $retrive[$key] = $value;
-    }
+    if (isset($_SESSION['userid'])){
+        $bar = new va;
+        $id = $bar->get_user($_SESSION['userid']);
+        $uid = $id[0]['userid'];
+        $retrive = array();
+        $not_val = "";
+        foreach($_POST as $key => $value)
+        {
+            $retrive[$key] = $value;
+        }
     
-    if ($_SESSION["userid"]  && isset($_POST["submit"]))
+    
+    if (isset($_SESSION["userid"])  && isset($_POST["submit"]))
     {
         if($retrive['comment'] && $retrive['userid'] && $_SESSION['userid'] && $retrive['imagenu'])
         {
@@ -34,7 +34,7 @@
             unset($ad);
             header('location: index.php');
         }
-    }elseif ($_SESSION["userid"] && isset($_POST['like']))
+    }elseif (isset($_SESSION["userid"]) && isset($_POST['like']))
     {
         if($retrive['like'] && $_SESSION['userid'])
         {
@@ -46,18 +46,17 @@
             header('location: index.php');
         }
     }
+}
     $numperpage = 5;
-    // $page = 0;
-    if ($_SESSION['userid']) {
-        $sql1 = "SELECT * FROM userimage ORDER BY timess DESC";
-        $stmt1 = $conn->prepare($sql1);
-        $stmt1->execute();
-        $re = $stmt1->setFetchMode(PDO::FETCH_ASSOC);
-        $rows = $stmt1->fetchAll();
+    $sql1 = "SELECT * FROM userimage ORDER BY timess DESC";
+    $stmt1 = $conn->prepare($sql1);
+    $stmt1->execute();
+    $re = $stmt1->setFetchMode(PDO::FETCH_ASSOC);
+    $rows = $stmt1->fetchAll();
 
-        $numrecords = count($rows);
-        $numlinks = ceil($numrecords/$numperpage);
-    }
+    $numrecords = count($rows);
+    $numlinks = ceil($numrecords/$numperpage);
+
 
 
 ?>
@@ -77,7 +76,7 @@
         <h1 class="logo">INSTAGRU</h1>
     <nav class="nav_links">
         <?php
-            if ($_SESSION["userid"])
+            if (isset($_SESSION["userid"]))
             {
                 echo '<ul><li><a href="gallery.php">Profile</a></li> 
                         <li><a href="logout.php">logout</a></li></ul>';
@@ -100,7 +99,7 @@
             while($i < count($display))
             {
                 echo '<div ><div style="width:100%;"><img src="'.$display[$i]['images'].'"></div>';
-                if($_SESSION['userid'])
+                if(isset($_SESSION['userid']))
                 {
                     $lik = count($hold->getlikes($display[$i]['num']));
 
@@ -142,7 +141,7 @@
         <footer>
             <div class="footer">
                 <h3>Instagru</h3>
-                <p>&copy atau</p>
+                <p>&copy atau 2019</p>
             </div>
  
         </footer>

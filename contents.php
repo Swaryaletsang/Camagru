@@ -1,15 +1,12 @@
 <?php
-    //remove when doe or before marking
-    ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
-
+    error_reporting(0);
     session_start();
     include('./usermngt.php');
     include('./val.php');
 
     $va = new va();
     $id = $va->get_user($_SESSION['userid']);
-    if ($_SESSION['userid']){ 
-        echo 'You are logged in as ' .$id[0]['username'] .'<br>';
+    if ($_SESSION['userid']){
 
         if (isset($_POST['submit'])) {
             $uid = $id[0]['userid'];
@@ -58,7 +55,7 @@
             }
         }
 }else {
-    echo 'You are not Logged in! '."<a href='Login.php'>login here</a><br>";
+    header("Location: login.php");
 }
 
 // if(isset($_POST['submitdelete']))
@@ -71,7 +68,21 @@
     
 ?> 
 <html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
     <body>
+    <header>
+    <h1 class="logo">INSTAGRU</h1>
+    <nav class="nav_links">
+        <ul>
+            <li><a href="logout.php">logout</a></li>
+            <li><a href="contents.php">upload</a></li>
+            <li><a href="modify.php">edituser</a></li>
+            <li><a href="index.php">public</a> </li> 
+        </ul>
+</nav>
+    </header>
     <?php
     if ($_SESSION['userid']){
         // echo  "<a href='modify.php'>Edit Profile</a><br>";

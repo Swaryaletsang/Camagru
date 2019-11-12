@@ -54,7 +54,6 @@ header {
 }
 
 .container {
-    border: 2px solid red;
     background-color: antiquewhite;
 }
 
@@ -66,5 +65,5 @@ header {
 }
 
 .button {
-    margin-left: 30%;
+    margin-left: 20%;
 }

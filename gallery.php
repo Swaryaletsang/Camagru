@@ -1,6 +1,5 @@
 <?php
-//remove when doe or before marking
-ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+error_reporting(0);
     session_start();
     include("val.php");
     include("usermngt.php");
@@ -64,7 +63,7 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
     <footer>
             <div class="footer">
                 <h3>Instagru</h3>
-                <p>&copy atau</p>
+                <p>&copy atau 2019</p>
             </div>
  
         </footer>

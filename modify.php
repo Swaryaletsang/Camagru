@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
     session_start();   
     include('./val.php');
     include('./usermngt.php');
@@ -37,8 +38,7 @@
                     $uname = $id[0]['username'];
                 if ($email || $name || $uname || $password){
                     $va = new va();
-                    if ($va->test_email($retrive['email']) || $va->test_password($retrive['password']) || $va->test_user($retrive['username'])){
-
+                    if ($va->test_email($retrive['email']) || $va->test_password($retrive['password']) || $va->test_user($retrive['username']) || $name){
                         $var = new createuser($email, $name, $uname, $password);
                         $var->update_profile($id[0]['userid']); 
                     }
@@ -82,9 +82,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Edit Account</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+<header>
+    <h1 class="logo">INSTAGRU</h1>
+    <nav class="nav_links">
+        <ul>
+            <li><a href="logout.php">logout</a></li>
+            <li><a href="contents.php">upload</a></li>
+            <li><a href="modify.php">edituser</a></li>
+            <li><a href="index.php">public</a> </li> 
+        </ul>
+</nav>
+    </header>
     <div class="Container">
         <div class="box-1">
             <div>
@@ -97,7 +109,7 @@
                     <p><input type="email" name="email" id="email" placeholder=<?php echo $id[0]['email'];?> pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email format"></p>
                     <p><input type="text" name="name" placeholder="<?php echo $id[0]['fullname'];?>" id="name"></p>
                     <p> <input type="text" name="username" placeholder=<?php echo $id[0]['username'];?> id="username" pattern="[A-Za-z0-9]{6,}"></p>
-                    <p><input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Change Password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
+                    <p><input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Change Password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
                     <p><input type="password" name="curentpassword" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Enter current Password" required></p>
                     <p><input type="submit" value="Update" name="submit" id="submit"></p>
                 </form>
@@ -128,9 +140,6 @@
                         }
                     }
                 }
-                echo $session_user_id."<br>";
-                $prefence = $check[0]['preference'];
-                echo $prefence;
             ?>
             <div class="form_reg">
                 <form method="post">
