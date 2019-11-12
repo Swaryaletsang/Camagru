@@ -1,5 +1,5 @@
 <?php
-error_reporting(0)
+error_reporting(0);
 include('./val.php');
 include('./usermngt.php');
 $retrive = array();
