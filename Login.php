@@ -1,6 +1,7 @@
 <?php
 session_start();
-include('./val.php');
+include('./navigation/nev_login.php');
+include "val.php";
     $retrive = array();
     $not_val = "";
     foreach($_POST as $key => $value)
@@ -12,6 +13,7 @@ include('./val.php');
                 $id = $va->get_user($retrive["username"]);
                 $uid = $id[0]['userid'];
                 $_SESSION['userid'] = $uid;
+               echo $_SESSION['pwd'] = $id[0]['passwd'];
                 header("location: index.php");
             }      
             else
@@ -30,35 +32,34 @@ include('./val.php');
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="header.css">
+    <style>
+        .he, h1{
+            margin-left: 60px;
+        }
+    </style>
     <title>Login</title>
 </head>
 
 <body>
     <div style="width:100%;">
-    <div style="width:100%; margin-left:10%; margin-right:25%; margin-top:10%; margin-bottom:auto;">
-        <div style="width:50%; margin-left:25%; margin-right:25%; margin-top:10%; margin-bottom:0;">
-            <div>
-                <p>
+        <div style="width:300px; height:300px; margin:auto; background-color:#A0C2FA; zoom:1;">
+            
+                <p class="he">
                     <h1>CAMAGRU</h1>
                 </p>
-            </div>
-            <div class="form_reg"> 
+
                 <div><?php echo $not_val;?></div>
                 <form method="POST" style="">
-                    <p><input type="text" name="username" placeholder="Username" id="username" required></p>
-                    <p><input type="password" name="password" id="password" placeholder="Password" required></p>
-                    <p> <input type="submit" value="Login" name="submit" id="submit"></p>
+                    <p class="he"><input type="text" name="username" placeholder="Username" id="username" required></p>
+                    <p class="he"><input type="password" name="password" id="password" placeholder="Password" required></p>
+                    <p class="he"><input type="submit" value="Login" name="submit" id="submit"></p>
                 </form>
-            </div>
-            <div>
-                <p> <a href="forgotPass.php"> forgot password</a></p>
-            </div>
-        </div>
-        <div style="width:50%; margin-left:25%; margin-right:25%; margin-bottom:auto; max-width:500px; float:none;">
-            <p>Don't have an account? <a href="Register.php">Sign up</a></p>
+                <p class="he"><a href="forgotPass.php"> forgot password</a></p>
+                <p class="he">Don't have an account? <a href="Register.php">Sign up</a></p> 
+          
         </div>
     </div>
-    </div>
+    <?php include('./footer/footer.php'); ?>
 
 </body>
 

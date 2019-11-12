@@ -14,7 +14,8 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
     }
     include "connection.php";
     $numperpage = 5;
-    $sql1 = "SELECT * FROM userimage ORDER BY timess DESC";
+    $id = $_SESSION['userid'];
+    $sql1 = "SELECT * FROM userimage WHERE userid = $id ORDER BY timess DESC";
     $stmt1 = $conn->prepare($sql1);
     $stmt1->execute();
     $re = $stmt1->setFetchMode(PDO::FETCH_ASSOC);
@@ -44,7 +45,7 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
                
             include_once('./picdb.php');
             $arr = new picdb();
-            $display = $arr->getall();
+            $display = $arr->getuser($_SESSION["userid"]);
           
             $i = 0;
             while($i < count($display))

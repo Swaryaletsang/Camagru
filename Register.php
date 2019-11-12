@@ -1,6 +1,7 @@
 <?php
 include('./val.php');
 include('./usermngt.php');
+include('./navigation/nev_register.php');
 $retrive = array();
 foreach($_POST as $key => $value)
     $retrive[$key] = $value;
@@ -29,36 +30,34 @@ if ($retrive["email"] && $retrive["name"] && $retrive["username"] && $retrive["p
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="header.css">
+    <style>
+        .he, h1{
+            margin-left: 60px;
+        }
+    </style>
     <title>User_Registration</title>
 </head>
 
 <body>
-    <div class="Container">
-        <div class="box-1">
-            <div>
-                <p>
+    <div style="width:100%;">
+      
+            <div style="width:300px; height:350px; margin:auto; background-color:#A0C2FA; zoom:1;"> 
+                <p class = "he">
                     <h1>CAMAGRU</h1>
                 </p>
-                <p>Sign up to see photos and videos from your friends.</p>
-            </div>
-            <div class="form_reg">
+          
                 <form action="Register.php" method="post">
-                    <p><input type="email" name="email" id="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email format" required></p>
-                    <p><input type="text" name="name" placeholder="Full Name" id="name"></p>
-                    <p> <input type="text" name="username" placeholder="Username" id="username" pattern="[A-Za-z0-9]{6,}" required></p>
-                    <p><input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Password" required title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
-                    <p><input type="submit" value="Sign Up" name="submit" id="submit"></p>
-                </form>
-            </div>
-            <div>
-                <p>By signing up, you agree to our Terms , Data Policy and Cookies Policy .</p>
-            </div>
-        </div>
-        <div class="box-2">
-            <p>Have an account? <a href="Login.php">Login</a></p>
-        </div>
+                    <p class = "he"><input type="email" name="email" id="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email format" required></p>
+                    <p class = "he"><input type="text" name="name" placeholder="Full Name" id="name"></p>
+                    <p class = "he"> <input type="text" name="username" placeholder="Username" id="username" pattern="[A-Za-z0-9]{6,}" required></p>
+                    <p class = "he"><input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Password" required title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
+                    <p class = "he"><input type="submit" value="Sign Up" name="submit" id="submit"></p>
+        
+                    <p class = "he">Have an account? <a href="Login.php">Login</a></p>
+            </div>         
     </div>
-
+    
+    <?php include('./footer/footer.php'); ?>
 </body>
 
 </html>

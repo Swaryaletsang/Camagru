@@ -53,7 +53,7 @@ class picdb{
             echo "Selection failed: " . $e->getMessage();
         }
     }
-    public function getalluser($userid)
+    public function getuser($userid)
     {
         try{
             $sql = 'SELECT * FROM userimage WHERE userid = :userid ORDER BY timess DESC';
