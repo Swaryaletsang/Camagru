@@ -6,8 +6,7 @@
             include('./connection.php');
             $this->conns = $conn;
         }
-
-        /*    */
+        
         public function test_user($uname)
         {
             if (!preg_match('/[A-Za-z0-9]{6,}/', $uname))

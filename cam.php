@@ -1,13 +1,11 @@
 <?php
-//remove when doe or before marking
-// ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+
     session_start();
     
     include_once('picpro.php');
     if (!$_SESSION['userid'])
         header('Location: login.php');
-    $uid = $id[0]['userid'];
-    if ($_POST['ims'])
+    if (isset($_POST['ims']))
     {
         include('savimg.php');
         $ar = new saveimg();
@@ -70,9 +68,6 @@
             ?>
             </form>
             <button id="save" style="display: none;">Save</button>
-        </div>
-        <div id="imagediv">
-             <img src="" class="saveimage" id="saveimage" style="border: 1px solid black; margin-left: 0%; width:100%;">
         </div>
     </div>
 

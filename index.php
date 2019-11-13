@@ -1,8 +1,5 @@
 <?php
     session_start();
-    // ini_set('display_errors', 1);
-    // ini_set('display_startup_errors', 1);
-    // error_reporting(E_ALL);
     include "connection.php";
     include ('./navigation/desp.php');
     include './navigation/nev_index.php';
@@ -24,15 +21,14 @@
                 $ad->emailcomment($retrive['userid'], 'comment');
             unset($ad);
         }
-    }elseif ($_SESSION["userid"] && isset($_POST['like']))
+    }
+    elseif ($_SESSION["userid"] && isset($_POST['like']))
     {
         if($retrive['like'] && $_SESSION['userid'])
         {
             include_once('commentnlike.php');
             $ad = new commentnlike();
             $ad->addlike($_SESSION['userid'], $retrive['like'], $retrive['imagenu']);
-            if ($cheked == 1)
-                $ad->emailcomment($retrive['userid'], 'like');
             unset($ad);
         }
     }

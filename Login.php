@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 include('./navigation/nev_login.php');
 include "val.php";
@@ -6,20 +6,23 @@ include "val.php";
     $not_val = "";
     foreach($_POST as $key => $value)
         $retrive[$key] = $value;
-    if ($retrive["username"] && $retrive["password"] && $retrive["submit"]) {
-        $va = new va();
-        if ($va->valid_login($retrive['username'], $retrive['password'])){
-            if ($va->email_verified($retrive['username'])){
-                $id = $va->get_user($retrive["username"]);
-                $uid = $id[0]['userid'];
-                $_SESSION['userid'] = $uid;
-                header("location: index.php");
-            }      
-            else
-                echo "confirm account first";
-        }
-        else{
-            $not_val = "incorect username or password";
+    if (isset($retrive["submit"])){
+
+        if ($retrive["username"] && $retrive["password"]) {
+            $va = new va();
+            if ($va->valid_login($retrive['username'], $retrive['password'])){
+                if ($va->email_verified($retrive['username'])){
+                    $id = $va->get_user($retrive["username"]);
+                    $uid = $id[0]['userid'];
+                    $_SESSION['userid'] = $uid;
+                    header("location: index.php");
+                }      
+                else
+                    echo "confirm account first";
+            }
+            else{
+                $not_val = "incorect username or password";
+            }
         }
     }
 ?>

@@ -2,13 +2,14 @@
     $retrive = array();
     foreach($_POST as $key => $value)
         $retrive[$key] = $value;
-    if ($retrive['image']) {
+    if (isset($retrive['image'])) {
         $reimage = explode(",", $retrive['image']);
         $encodedData = str_replace(' ','+',$reimage[1]);
         $decodedData = base64_decode($encodedData);
         $fp = fopen("canvas.jpeg", 'wb');
         fwrite($fp, $decodedData);
         fclose($fp);
+        $type = 'pgn';
         switch($retrive['rad']){
             case "bat":
                 
