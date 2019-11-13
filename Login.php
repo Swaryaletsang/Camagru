@@ -13,7 +13,6 @@ include "val.php";
                 $id = $va->get_user($retrive["username"]);
                 $uid = $id[0]['userid'];
                 $_SESSION['userid'] = $uid;
-               echo $_SESSION['pwd'] = $id[0]['passwd'];
                 header("location: index.php");
             }      
             else

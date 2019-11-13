@@ -76,10 +76,11 @@
 
             if ($_SESSION['userid']){
             echo "<form style='width:50%; margin:10% 25% 25% 25%; max-width:500px;' action='' method='POST' enctype='multipart/form-data'>
-            <input type='file' name='image' id='image' style='zoom:300%; width:100%'>
-            <p><button style='zoom:300%' type='submit' name='submit'>Upload</button><p>
+            <input type='file' name='image' id='image' style='zoom:1; width:100%'>
+            <p><button style='zoom: 1' type='submit' name='submit'>Upload</button><p>
             </form>";
             }
+            include('./footer/footer.php');
             ?>     
 
     </body>    

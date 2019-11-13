@@ -13,7 +13,7 @@
             if (!preg_match('/[A-Za-z0-9]{6,}/', $uname))
                 return 0;
             try{
-                $sql = 'SELECT * FROM users WHERE username = :uname;';
+                $sql = 'SELECT * FROM users WHERE username = :uname';
                 $stmt = $this->conns->prepare($sql);
                 $stmt->bindParam(":uname", $uname);
                 $stmt->execute();
@@ -29,7 +29,7 @@
         public function test_user1($uname)
         {
             try{
-                $sql = 'SELECT * FROM users WHERE username = :uname;';
+                $sql = 'SELECT * FROM users WHERE username = :uname';
                 $stmt = $this->conns->prepare($sql);
                 $stmt->bindParam(":uname", $uname);
                 $stmt->execute();
@@ -54,10 +54,10 @@
         /*      */
         public function test_email($email)
         {
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
                 return 0;
             try{
-                $sql = 'SELECT * FROM users WHERE email = :email;';
+                $sql = 'SELECT * FROM users WHERE email = :email';
                 $stmt = $this->conns->prepare($sql);
                 $stmt->bindParam(":email", $email);
                 $stmt->execute();
@@ -73,7 +73,7 @@
         public function test_email1($email)
         {
             try{
-                $sql = 'SELECT * FROM users WHERE email = :email;';
+                $sql = 'SELECT * FROM users WHERE email = :email';
                 $stmt = $this->conns->prepare($sql);
                 $stmt->bindParam(":email", $email);
                 $stmt->execute();
@@ -93,7 +93,7 @@
                
             if (preg_match('/[A-Za-z0-9]{6,}/', $uname)){
                 try{
-                    $sql = 'SELECT * FROM users WHERE username = :uname && passwd = :passwd;';
+                    $sql = 'SELECT * FROM users WHERE username = :uname && passwd = :passwd';
                     $stmt = $this->conns->prepare($sql);
                     $stmt->bindParam(":uname", $uname);
                     $stmt->bindParam(":passwd", hash("md5",$passwd));
@@ -108,7 +108,7 @@
             }
             if(filter_var($uname, FILTER_VALIDATE_EMAIL)){
                 try{
-                    $sql = 'SELECT * FROM users WHERE email = :uname && passwd = :passwd;';
+                    $sql = 'SELECT * FROM users WHERE email = :uname && passwd = :passwd';
                     $stmt = $this->conns->prepare($sql);
                     $stmt->bindParam(":uname", $uname);
                     $stmt->bindParam(":passwd", hash("md5",$passwd));

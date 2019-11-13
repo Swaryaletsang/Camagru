@@ -48,7 +48,7 @@ class createuser{
         $stmt->bindParam(":fullname", $this->name);
         $stmt->bindParam(":email", $this->email);
         $stmt->bindParam(":email", $this->email);
-        $stmt->bindParam(":passwd", hash("md5",$this->passw));
+        $stmt->bindParam(":passwd", $this->passw);
         $stmt->bindParam(":userid", $id);
 
         $stmt->execute();

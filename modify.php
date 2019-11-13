@@ -1,30 +1,27 @@
 <?php
-//remove when doe or before marking
-ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
     session_start(); 
     include("./navigation/desp.php");
     include("./navigation/nev_edituser.php");
     include('./usermngt.php');
-     
     $retrive = array();
     foreach($_POST as $key => $value)
         $retrive[$key] = $value;
     $va = new va();
     $id = $va->get_username($_SESSION['userid']);
-    $uname = $retrive['username'];
-    $name = $retrive['name'];
-    $email = $retrive['email'];
-    $password = $retrive['password'];
-    $curentpassword = $retrive['curentpassword'];
-    $pwd = $_SESSION['pwd'];
     $chek = $va->fetc_pref($id[0]['userid']);
     $cheked = $chek[0]['pref'];
     if (!$_SESSION['userid'])
         header('Location: login.php');
-    if ($retrive['submit'])
+    if (isset($retrive['submit']))
     {
-        if ($pwd === $curentpassword )
+        $uname = $retrive['username'];
+        $name = $retrive['name'];
+        $email = $retrive['email'];
+        $password = $_POST['password'];
+        $curentpassword = $retrive['curentpassword'];
+        if ($id[0]['passwd'] === hash("md5",$curentpassword))
         {
+         
             if(!$email && !$name && !$uname && !$password){
                 $error_msg = "Nothing changed";
                 echo $error_msg;
@@ -33,15 +30,18 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
                 if (!$email)
                     $email = $id[0]['email'];
                 if (!$password)
-                    $password = $pwd;
+                    $password = $id[0]['passwd'];
                 if (!$name)
                     $name = $id[0]['fullname'];
                 if (!$uname)
                     $uname = $id[0]['username'];
                 if ($email || $name || $uname || $password){
-                    if ($va->test_email($retrive['email']) || $va->test_password($retrive['password']) || $va->test_user($retrive['username'])){
+                    if ($va->test_email($email) || $va->test_user($uname) || $password ){;
+                        if($password !=  $id[0]['passwd'])
+                           $password = hash("md5",$password);
                         $var = new createuser($email, $name, $uname, $password);
-                        $var->update_profile($_SESSION['userid']); 
+                        $var->update_profile($_SESSION['userid']);
+                        echo '<center>Profile Updated</center>'; 
                     }
                     else {
                         if ($_POST['email'])
@@ -50,7 +50,7 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
                             echo "Username already exist!";
                     }
                 }
-                if ($cheked == 1){
+                if ($cheked === 1){
                     if ($_POST['name'])
                         mail($id[0]['email'], "CAMAGRU account updated", "Hi " .$id[0]['username'].",\n\nYou have changed your fullname.\n\nRegards\nCAMAGRU", "FROM:(CAMAGRU)camagruca@gmail.com");
                     if ($_POST['email'])
@@ -64,7 +64,6 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
             }    
              
         }
-
     }
     if (isset($_POST['prfn']))
     {
@@ -97,32 +96,33 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="header.css">
+    <style>
+        .he, h1{
+            margin-left: 60px;
+        }
+    </style>
     <title>Edit Account</title>
 </head>
 
 <body>
-    <div class="Container">
-        <div class="box-1">
-            <div>
-                <p>
-                    <h1>EDIT ACCOUNT</h1>
+    <div style="width:300px; height:350px; margin:auto; background-color:#A0C2FA; zoom:1;">
+                <p calass ="he">
+                    <h1>Update Profile</h1>
                 </p>
-            </div>
-            <div class="form_reg">
                 <form action="" method="post">
-                    <p><input type="email" name="email" id="email" placeholder=<?php echo $id[0]['email'];?> pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email format"></p>
-                    <p><input type="text" name="name" placeholder="<?php echo $id[0]['fullname'];?>" id="name"></p>
-                    <p> <input type="text" name="username" placeholder=<?php echo $id[0]['username'];?> id="username" pattern="[A-Za-z0-9]{6,}"></p>
-                    <p><input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Change Password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
-                    <p><input type="password" name="curentpassword" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Enter current Password" required></p>
-                    <p><input type="submit" value="Update" name="submit" id="submit"></p>
+                    <p class ="he"><input type="email" name="email" placeholder=<?php echo $id[0]['email'];?> pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email format"></p>
+                    <p class ="he"><input type="text" name="name" placeholder="<?php echo $id[0]['fullname'];?>"></p>
+                    <p class="he"> <input type="text" name="username" placeholder=<?php echo $id[0]['username'];?> pattern="[A-Za-z0-9]{6,}"></p>
+                    <p class="he"><input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Change Password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
+                    <p class="he"><input type="password" name="curentpassword"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Enter current Password" required></p>
+                    <p class="he"><input type="submit" value="Update" name="submit"></p>
                 </form>
                 <form action="" method="POST">
-                    <p><input type="checkbox" name="email_preference" <?php echo ($cheked == 1)?"checked":"";?>> Receive email Notification?</p>
-                    <p><input type="submit" value="Change Email Preferences" name="prfn" id="submit"></p>
+                    <p class="he"><input type="checkbox" name="email_preference" <?php echo ($cheked == 1)?"checked":"";?>> Receive email Notification?</p>
+                    <p class = 'he'><input type="submit" value="Change Email Preferences" name="prfn" id="submit"></p>
                 </form>
-            </div>
     </div> 
+    <?php include('./footer/footer.php'); ?>
 
 </body>
 

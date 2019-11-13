@@ -55,8 +55,15 @@ class picdb{
     }
     public function getuser($userid)
     {
+        $numperpage = 5;
+        $page = 0;
+        if (isset($_POST["page"])) {
+            $page = $_POST["page"];
+            $page = ($page * $numperpage) - $numperpage;
+        }
         try{
-            $sql = 'SELECT * FROM userimage WHERE userid = :userid ORDER BY timess DESC';
+            $sql = "SELECT * FROM userimage WHERE userid = :userid ORDER BY timess DESC LIMIT {$page},{$numperpage}";
+            
             // $sql = 'SELECT userimage.images, userimage.timess As time FROM userimage where userimage.userid = ? UNION SELECT photos.images, photos.imgDate As time FROM photos where photos.userid = ? ORDER BY time';
             $stmt = $this->co->prepare($sql);
             $stmt->bindParam(':userid', $userid);
