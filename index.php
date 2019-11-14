@@ -3,7 +3,7 @@
     error_reporting(0);
     include "connection.php";
     include ('val.php');
-    if (isset($_SESSION['userid'])){
+    if (isset($_SESSION['userid']) || isset($_SESSION['userid'])){
         $bar = new va;
         $id = $bar->get_user($_SESSION['userid']);
         $uid = $id[0]['userid'];

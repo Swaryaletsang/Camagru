@@ -106,9 +106,9 @@ error_reporting(0);
             </div>
             <div class="form_reg">
                 <form action="" method="post">
-                    <p><input type="email" name="email" id="email" placeholder=<?php echo $id[0]['email'];?> pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email format"></p>
-                    <p><input type="text" name="name" placeholder="<?php echo $id[0]['fullname'];?>" id="name"></p>
-                    <p> <input type="text" name="username" placeholder=<?php echo $id[0]['username'];?> id="username" pattern="[A-Za-z0-9]{6,}"></p>
+                    <p><input type="email" name="email" id="email" placeholder="change Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email format"></p>
+                    <p><input type="text" name="name" placeholder="change fullname" id="name"></p>
+                    <p> <input type="text" name="username" placeholder="change username" id="username" pattern="[A-Za-z0-9]{6,}"></p>
                     <p><input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Change Password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
                     <p><input type="password" name="curentpassword" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" Enter current Password" required></p>
                     <p><input type="submit" value="Update" name="submit" id="submit"></p>

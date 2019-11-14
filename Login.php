@@ -13,6 +13,9 @@ include('./val.php');
                 $_SESSION['pwd'] = $retrive['password'];
                 $_SESSION['email'] = $retrive['email'];
                 $_SESSION['name'] = $retrive['fullname'];
+                $id = $va->getuser($_SESSION['userid']);
+                $uid = $id[0]['userid'];
+                $_SESSION['id'] = $uid;
                 header("location: index.php");
             }      
             else

@@ -77,9 +77,6 @@ error_reporting(0);
     <div>
         <button id="save" style="display: none;">Save</button>
     </div>
-    <div id="imagediv">
-         <img src="" id="saveimage" style="float: left; border: 1px solid black; margin-left: 10px;">
-    </div>
     <script>
             'use strict';
             const video = document.getElementById('video');
