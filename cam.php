@@ -5,14 +5,11 @@ error_reporting(0);
     include_once('picpro.php');
     if (!$_SESSION['userid'])
         header('Location: login.php');
-    $bar = new va;
-    $id = $bar->get_user($_SESSION['userid']);
-    $uid = $id[0]['userid'];
     if ($_POST['ims'])
     {
         include('savimg.php');
         $ar = new saveimg();
-        $ar->saveimg($_POST['ims'], $uid);
+        $ar->saveimg($_POST['ims'], $_SESSION['userid']);
         $s = shell_exec('rm merge.png');
         $s = shell_exec('rm canvas.jpeg');
         header("Location: gallery.php");

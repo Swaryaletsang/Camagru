@@ -3,10 +3,9 @@
     error_reporting(0);
     include "connection.php";
     include ('val.php');
-    if (isset($_SESSION['userid']) || isset($_SESSION['userid'])){
+    if (isset($_SESSION['userid'])){
         $bar = new va;
-        $id = $bar->get_user($_SESSION['userid']);
-        $uid = $id[0]['userid'];
+        $uid = $_SESSION['userid'];
         $retrive = array();
         $not_val = "";
         foreach($_POST as $key => $value)
@@ -67,8 +66,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gallery</title>
-     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="flexboxgrid.css"> -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>

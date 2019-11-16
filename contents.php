@@ -4,12 +4,10 @@
     include('./usermngt.php');
     include('./val.php');
 
-    $va = new va();
-    $id = $va->get_user($_SESSION['userid']);
     if ($_SESSION['userid']){
 
         if (isset($_POST['submit'])) {
-            $uid = $id[0]['userid'];
+            $uid = $_SESSION['userid'];
             $file = $_FILES['image'];
 
             $fileSize = $file['size'];
@@ -57,14 +55,6 @@
 }else {
     header("Location: login.php");
 }
-
-// if(isset($_POST['submitdelete']))
-// {
-//     $var = new images();
-//     $uid = $id[0]['userid'];
-//     $pid = $_POST['submitdelete'];
-//     $var->deletepost($uid ,$pid);
-// }
     
 ?> 
 <html>
@@ -85,10 +75,8 @@
     </header>
     <?php
     if ($_SESSION['userid']){
-        // echo  "<a href='modify.php'>Edit Profile</a><br>";
-        // echo  "<a href='cam.php'>Take a picture</a><br>";
-        echo "<form action='logout.php' method='POST'>
-            <button type='submit' name='logoutsubmit' id='logoutsubmit'>Logout</button>
+        echo "<form action='gallery.php' method='POST'>
+            <button type='submit' name='logoutsubmit' id='logoutsubmit'>My Gallery</button>
         </form>";
     }
     ?>
@@ -103,21 +91,6 @@
             }
             ?> 
         </div>
-        <!-- <?php
-        $va = new va();
-        $id = $va->get_user($_SESSION['userid']);
-        $var = new images();
-        $r = $var->displayImage($id[0]['userid']);
-            foreach($r as $row){
-                echo "<div id='img'>";
-                    echo "<img src='uploads/".$row['images']."'>";
-                    echo "<p>".$row['txt']."</p>";
-                   echo " <form action='contents.php' method= 'POST'>
-                    <button class='button' type='submit' name='submitdelete' value='".$row['id']."'>Delete</button>
-                </form>";             
-                echo "</div>";
-            }
-        ?> -->
     
 
     </body>    

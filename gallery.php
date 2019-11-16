@@ -4,11 +4,10 @@ error_reporting(0);
     include("val.php");
     include("usermngt.php");
     $va = new va();
-    $id = $va->get_user($_SESSION['userid']);
     if(isset($_POST['submitdelete']))
     {
         $var = new images();
-        $uid = $id[0]['userid'];
+        $uid = $_SESSION['userid'];
         $pid = $_POST['submitdelete'];
         $var->deletepost($uid ,$pid);
     }
@@ -39,9 +38,7 @@ error_reporting(0);
     </header>
     <div>
         <?php
-            $var = new va;
-            $id = $var->get_user($_SESSION['userid']);
-            $uid = $id[0]['userid'];
+            $uid = $_SESSION['userid'];
            
             include_once('./picdb.php');
             $arr = new picdb();

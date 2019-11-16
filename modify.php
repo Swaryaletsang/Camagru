@@ -8,7 +8,7 @@ error_reporting(0);
     foreach($_POST as $key => $value)
         $retrive[$key] = $value;
     $va = new va();
-    $id = $va->get_user($_SESSION['userid']);
+    $id = $va->get_username($_SESSION['userid']);
     $uname = $retrive['username'];
     $name = $retrive['name'];
     $email = $retrive['email'];

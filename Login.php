@@ -9,14 +9,11 @@ include('./val.php');
         $va = new va();
         if ($va->valid_login($retrive['username'], $retrive['password'])){
             if ($va->email_verified($retrive['username'])){
-                $_SESSION['userid'] = $retrive["username"];
                 $_SESSION['pwd'] = $retrive['password'];
-                $_SESSION['email'] = $retrive['email'];
-                $_SESSION['name'] = $retrive['fullname'];
-                $id = $va->getuser($_SESSION['userid']);
+                $id = $va->get_user($retrive["username"]);
                 $uid = $id[0]['userid'];
-                $_SESSION['id'] = $uid;
-                header("location: index.php");
+               $_SESSION['userid'] = $uid;
+               header("location: index.php");
             }      
             else
                 echo "confirm account first";
