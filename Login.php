@@ -37,7 +37,7 @@ include('./val.php');
         <div class="box-1">
             <div>
                 <p>
-                    <h1>CAMAGRU</h1>
+                    <h1>INSTAGRU</h1>
                 </p>
             </div>
             <div class="form_reg"> 

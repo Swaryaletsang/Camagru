@@ -36,7 +36,7 @@ if ($retrive["email"] && $retrive["name"] && $retrive["username"] && $retrive["p
         <div class="box-1">
             <div>
                 <p>
-                    <h1>CAMAGRU</h1>
+                    <h1>INSTAGRU</h1>
                 </p>
                 <p>Sign up to see photos and videos from your friends.</p>
             </div>
