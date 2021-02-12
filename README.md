@@ -12,7 +12,7 @@ Clone
 
 This is a PHP project so you have to start LAMP, MAMP, WAMP or other apache server. Then you can clone this repo in your apache diretory like htdocs for MAMP.
 
-  git clone -b Swaryaletsang https://github.com/Swaryaletsang/Camagru.git Instagru
+  git clone -b Katonko https://github.com/Swaryaletsang/Camagru.git Instagru
 
 Then you must go to localhost:/Instagru/config/ to install the database and fill it.
 
